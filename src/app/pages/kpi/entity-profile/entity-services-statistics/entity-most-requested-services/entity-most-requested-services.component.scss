@@ -1,0 +1,53 @@
+.f2-table-top-services {
+    flex: 2 1 400px;
+
+    display: flex;
+    gap: 10px;
+    flex-flow: column;
+
+    .f2-table-title {
+        justify-content: right;
+        height: 40px;
+    }
+}
+
+.f2-evaluation-top-services {
+    flex: 1 1 300px;
+
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 40px 1fr;
+
+    .f2-evaluation-header {
+        height: 40px;
+        grid-column: 1 / span 4;
+        text-align: right;
+    }
+
+    .f2-evaluation-container {
+        justify-content: end;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-flow: column;
+        gap: 40px;
+
+        .f2-evaluation-progress-bar {
+            height: 200px;
+
+            &.second {
+                height: 175px;
+            }
+
+            &.other {
+                height: 120px;
+            }
+        }
+
+        .f2-evaluation-icon {
+            height: 25px;
+            width: 25px;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<button
+    class="f2-button trigger-button"
+    [matMenuTriggerFor]="downloadMenu"
+>
+    Download
+    <mat-icon class="download-icon">download</mat-icon>
+</button>
+<mat-menu #downloadMenu>
+    @for (format of formats(); track format) {
+        <button
+            mat-menu-item
+            class="download-menu-item"
+            (click)="downloadFormat(format)"
+        >
+            {{ format }}
+        </button>
+    }
+</mat-menu>

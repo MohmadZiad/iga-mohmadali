@@ -1,0 +1,46 @@
+:host {
+    position: relative;
+    display: block;
+}
+.progress-bar {
+    display: flex;
+    background-color: var(--f2-theme-primary-light-color);
+    overflow: hidden;
+    // justify-content: flex-end; // TO right
+    justify-content: flex-start; // TO left
+
+    &.horizontal {
+        width: 100%;
+        height: 0.95rem;
+        border-radius: 10px;
+
+        .progress-bar-inner {
+            height: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+    }
+
+    &.vertical {
+        width: 40px;
+        height: 100%;
+        border-radius: 16px;
+
+        .progress-bar-inner {
+            width: 100%;
+            transition: height 0.5s ease-in-out;
+            align-self: end;
+        }
+    }
+
+    .progress-bar-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.9rem;
+    }
+
+    .progress-bar-inner {
+        background-color: var(--f2-accent-line-green-color);
+    }
+}

@@ -1,0 +1,23 @@
+.f2-page-header {
+    min-width: 355px;
+}
+
+.f2-header-title {
+    color: var(--f2-text-title-color);
+
+    .entity-page-subtitle,
+    .entity-page-title {
+        padding: 0 0.5rem;
+    }
+
+    .entity-page-title {
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .entity-page-subtitle {
+        font-weight: 400;
+        display: inline-block;
+        border-right: 1px solid var(--f2-border-color);
+    }
+}

@@ -1,0 +1,61 @@
+:host {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+.logo-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.messages-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
+    overflow-y: auto;
+
+    .message-line {
+        &.llm-message {
+            color: var(--f2-theme-primary-color);
+            background: rgba(48, 128, 153, 0.13);
+        }
+
+        .message {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: start;
+            padding: 30px;
+            gap: 10px;
+
+            .message-avatar {
+                width: 30px;
+            }
+
+            .message-text {
+                width: 480px;
+                white-space: pre-wrap;
+                font:
+                    normal 500 15px / 27px Milliard,
+                    sans-serif;
+            }
+        }
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    gap: 12px;
+    padding: 15px;
+}

@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    gap: inherit;
+    flex-flow: column;
+}
+.chart-container {
+    flex: 1;
+    height: 400px;
+    .chart-service-statistics {
+        max-height: 400px;
+        min-height: 400px;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

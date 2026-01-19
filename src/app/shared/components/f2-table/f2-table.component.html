@@ -1,0 +1,95 @@
+@if (searchLabel()) {
+    <input
+        [formControl]="searchControl"
+        class="f2-input-field f2-search-input"
+        type="text"
+        [placeholder]="searchLabel()"
+    />
+}
+<div class="f2-table">
+    @let options = columnOptions();
+    <div class="f2-table-header">
+        @for (headerOption of options; track $index) {
+            <div
+                class="f2-table-row-item"
+                [style]="{ 'background-color': headerOption.color && hexToRgb(headerOption.color, 0.85) }"
+                [class]="{ 'white-text': !!headerOption.color, 'big-item': headerOption.isBig }"
+            >
+                {{ headerOption.label }}
+            </div>
+        }
+        @if (includeIndex()) {
+            <div class="f2-table-row-item index-item">#</div>
+        }
+        @if (rowActions().length) {
+            <div class="f2-table-row-item"></div>
+        }
+    </div>
+
+    @for (rowData of tableData(); track $index) {
+        @let rowIndex = $index;
+        <div
+            class="f2-table-row"
+            (click)="onClickToRow(rowData)"
+        >
+            @for (itemOption of options; track $index) {
+                @switch (itemOption.displayMode) {
+                    @case ('circleProgress') {
+                        <div class="f2-table-row-item">
+                            <app-circle-progress-bar
+                                class="progress-circle"
+                                [value]="rowData[itemOption.key]"
+                                [color]="itemOption.color || ''"
+                            />
+                        </div>
+                    }
+                    @case ('accountName') {
+                        <div class="f2-table-row-item account-name">
+                            <app-account-name [accountItem]="rowData[itemOption.key]" />
+                        </div>
+                    }
+                    @default {
+                        <div
+                            class="f2-table-row-item"
+                            [class]="{ 'big-item': itemOption.isBig }"
+                            [style]="{ 'background-color': itemOption.color && hexToRgb(itemOption.color, 0.15) }"
+                        >
+                            {{ rowData[itemOption.key] }}{{ itemOption.unit }}
+                        </div>
+                    }
+                }
+            }
+            @if (includeIndex()) {
+                <div class="f2-table-row-item index-item">
+                    {{ getIndexNumber(rowIndex) }}
+                </div>
+            }
+            @if (rowActions().length) {
+                <div class="f2-table-row-item">
+                    @for (action of rowActions(); track action) {
+                        <button
+                            mat-icon-button
+                            (click)="action.onClick(rowData)"
+                        >
+                            <img
+                                [src]="action.icon"
+                                [alt]="action.name"
+                            />
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+@if (countPages().length > 1) {
+    <div class="table-pagination">
+        @for (item of countPages(); track $index) {
+            <div
+                class="dot"
+                [class]="{ active: $index === selectedPage() }"
+                (click)="selectedPage.set($index)"
+            ></div>
+        }
+    </div>
+}

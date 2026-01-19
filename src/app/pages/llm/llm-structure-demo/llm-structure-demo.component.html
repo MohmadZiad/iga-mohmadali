@@ -1,0 +1,75 @@
+@if (!messages.length) {
+    <div class="logo-container">
+        <img
+            src="assets/icons/ce-color-logo-v2.png"
+            width="200px"
+            alt="LLM demo logo"
+        />
+        <h1>Welcome to Chat LLM</h1>
+    </div>
+} @else {
+    <div
+        class="messages-container"
+        #messagesContainer
+    >
+        @for (message of messages; track message) {
+            <div
+                class="message-line"
+                [ngClass]="{ 'llm-message': message.sender === 'llm' }"
+            >
+                <div class="message">
+                    @if (message.sender === 'llm') {
+                        <img
+                            class="message-avatar"
+                            src="assets/icons/llm/llm-avatar.png"
+                            alt="LLM avatar"
+                        />
+                    } @else {
+                        <img
+                            class="message-avatar"
+                            src="assets/icons/llm/user-avatar.svg"
+                            alt="user avatar"
+                        />
+                    }
+                    <div class="message-text">{{ message.text }}</div>
+                    <button
+                        mat-icon-button
+                        (click)="copyText(message.text)"
+                    >
+                        <img
+                            src="assets/icons/copy.svg"
+                            alt="copy button"
+                        />
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<form
+    [formGroup]="form"
+    (ngSubmit)="sendMessage()"
+>
+    <div class="form-container">
+        <textarea
+            wrap="soft"
+            formControlName="message"
+            class="f2-input-field f2-textarea f2-expandable"
+            placeholder="Type your message..."
+            type="text"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="2"
+            (keyup.enter)="sendMessage()"
+            (keydown.enter)="$event.preventDefault()"
+        >
+        </textarea>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            Send
+        </button>
+    </div>
+</form>

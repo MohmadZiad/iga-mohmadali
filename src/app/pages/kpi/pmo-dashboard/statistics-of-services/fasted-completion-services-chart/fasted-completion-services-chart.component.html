@@ -1,0 +1,17 @@
+<div class="f2-content-element chart-completion-container">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="reportFormats"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <span class="f2-title-text">{{ title() }}</span>
+    </div>
+    <app-f2-charts
+        #fastedCompletionChart
+        class="chart-item"
+        [data]="fastedChartData()"
+        color="#7bab64"
+        [dimensions]="dimensions"
+        (clickToChart)="goToDrillDown($event)"
+    />
+</div>

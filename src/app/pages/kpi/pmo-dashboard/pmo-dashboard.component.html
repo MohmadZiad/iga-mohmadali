@@ -1,0 +1,64 @@
+<div class="f2-page-header">
+    <div class="f2-filter-container">
+        <button
+            class="f2-button f2-page-download-menu"
+            [matMenuTriggerFor]="downloadPageMenu"
+        >
+            Download
+        </button>
+        <mat-menu #downloadPageMenu>
+            @for (child of menuItems(); track $index) {
+                <button
+                    mat-menu-item
+                    [matMenuTriggerFor]="itemMenu"
+                >
+                    {{ child.title() }}
+                </button>
+                <mat-menu #itemMenu>
+                    @for (format of child.reportFormats; track format) {
+                        <button
+                            class="format-menu-item"
+                            mat-menu-item
+                            (click)="child.downloadReport(format)"
+                        >
+                            {{ format }}
+                        </button>
+                    }
+                </mat-menu>
+            }
+        </mat-menu>
+        <button
+            class="f2-button f2-filter"
+            (click)="openPopup()"
+        ></button>
+    </div>
+    <div class="f2-header-title">
+        <span class="f2-title-text">
+            {{ translateService.getValue('pmoDashboardTitle') }}
+        </span>
+        <img
+            class="f2-page-icon ml10"
+            src="/assets/icons/chart-bar.svg"
+            alt="Page Icon"
+        />
+    </div>
+    <div class="selected-period">{{ translateService.getValue('selectedPeriod') }} {{ selectedPeriod() }}</div>
+    <app-f2-popup [(open)]="filterPopupOpen">
+        <app-filter-modal [(popupOpen)]="filterPopupOpen" />
+    </app-f2-popup>
+</div>
+
+<div class="f2-page-content kpi-dashboard">
+    <div class="f2-page-title text-right">
+        <span class="overview">{{ translateService.getValue('overview') }}</span>
+        <span class="key-metrics">{{ translateService.getValue('keyMetrics') }}</span>
+    </div>
+
+    <app-indicators-of-working />
+
+    <app-entity-statistics />
+
+    <app-statistics-of-completion-services />
+
+    <app-pmo-entity-reporting />
+</div>

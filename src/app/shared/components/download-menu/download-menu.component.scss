@@ -1,0 +1,16 @@
+.trigger-button {
+    background: url('/assets/icons/select-arrow.svg') left no-repeat;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--f2-text-color) !important;
+    padding-left: 1.3rem;
+
+    .download-icon {
+        color: #bf8d14;
+    }
+}
+
+.download-menu-item {
+    text-transform: uppercase;
+}

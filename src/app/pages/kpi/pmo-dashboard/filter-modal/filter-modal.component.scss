@@ -1,0 +1,22 @@
+:host {
+    display: grid;
+    grid-template-columns: minmax(auto, 900px);
+    gap: 10px;
+}
+
+.f2-filter-modal-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .f2-datepicker,
+    .f2-select {
+        flex: auto;
+        max-width: 300px;
+    }
+}
+
+.f2-filter-modal-actions {
+    display: flex;
+    place-content: flex-end;
+}

@@ -1,0 +1,39 @@
+<div class="f2-card f2-card-content">
+    <app-fasted-completion-services-chart [fastedServices]="dataServiceStatistics" />
+    <app-longest-completion-services-chart [longestServices]="dataServiceStatistics" />
+</div>
+
+<div class="f2-card f2-card-content">
+    <app-services-statistics [dataServiceStatistics]="dataServiceStatistics" />
+    <div class="chart-services-statistics-container">
+        <div class="f2-card-title">
+            <app-download-menu
+                [formats]="reportFormats"
+                (selectedFormat)="downloadReport($event)"
+            />
+            <span class="f2-title-text">{{ title() }}</span>
+        </div>
+        <app-chart-services-statistics
+            [data]="chartData()"
+            [dimensions]="dimension"
+            [dateRange]="selectedDataRange()"
+        />
+    </div>
+</div>
+
+<app-services-meet-sla [dataServicesMeetSLA]="dataServiceStatistics" />
+
+<app-services-exceed-sla [dataServicesExceedSLA]="dataServiceStatistics" />
+
+<div class="f2-card f2-card-content">
+    @for (item of listTopServicesByStatus; track $index) {
+        <app-top-services-by-status
+            [topServicesByStatus]="dataServiceStatistics"
+            [title]="item.title"
+            [status]="item.status"
+            [requestsLabel]="item.requestsLabel"
+        />
+    }
+</div>
+
+<app-most-requested-services [dataMostRequestedServices]="dataServiceStatistics" />

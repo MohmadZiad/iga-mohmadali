@@ -1,0 +1,143 @@
+// TODO: color
+.container {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--f2-page-background-color);
+    height: calc(100vh - 49px);
+    margin: 0;
+    padding: 22px 0 0;
+    box-sizing: border-box;
+}
+
+.page {
+    background-color: var(--f2-theme-secondary-color);
+    margin: 0 22px 22px 22px;
+    padding-top: 32px;
+    padding-bottom: 48px;
+}
+
+.form {
+    padding: 0 35px;
+
+    .header {
+        .title {
+            color: #181d27;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 28px;
+            letter-spacing: 0;
+        }
+
+        .description {
+            padding-top: 2px;
+            padding-bottom: 22px;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 20px;
+            letter-spacing: 0;
+            color: #535862;
+            border-bottom: 1px solid #e0e2ec;
+        }
+    }
+
+    .content {
+        padding-top: 40px;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+
+        .field {
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                label {
+                    padding-top: 10px;
+                    margin: 0 8px 8px 0;
+                    text-align: left;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0;
+                    color: #414651;
+
+                    &.required:after {
+                        content: ' *';
+                        font-size: 16px;
+                        color: var(--f2-error-color);
+                    }
+                }
+
+                input,
+                textarea {
+                    min-width: 200px;
+                    width: 500px;
+                    max-width: 700px;
+                    height: 44px;
+                    border-radius: 8px;
+                    border: 1px solid #d5d7da;
+                    box-shadow: 0 1px 2px 0 #0a0d120d;
+                    font:
+                        normal 300 16px/18px 'Inter',
+                        sans-serif;
+
+                    &.ng-invalid {
+                        border-color: var(--f2-error-color);
+                    }
+
+                    &::placeholder {
+                        font:
+                            normal 300 16px/18px 'Inter',
+                            sans-serif;
+                        color: #717680;
+                    }
+                }
+
+                textarea {
+                    padding-top: 12px;
+                    height: 180px;
+                    min-height: 50px;
+                    resize: vertical;
+                }
+
+                .datepicker {
+                    width: 100%;
+                    max-width: 500px;
+                    min-width: 200px;
+                }
+            }
+
+            .validation-error {
+                text-align: right;
+                padding-top: 8px;
+                font-size: 12px;
+                color: var(--f2-error-color);
+            }
+        }
+
+        .field:nth-child(1),
+        .field:nth-child(2) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .footer {
+        padding-top: 20px;
+        max-width: 800px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+
+        button {
+            font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        button.f2-cancel {
+            border: 1px solid #d5d7da;
+        }
+    }
+}

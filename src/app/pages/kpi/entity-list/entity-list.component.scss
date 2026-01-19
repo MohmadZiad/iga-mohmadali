@@ -1,0 +1,19 @@
+.entity-list {
+    grid-template-columns: minmax(385px, 100%);
+}
+
+.f2-page-header {
+    min-width: 385px;
+}
+
+.f2-card {
+    .f2-card-title {
+        position: absolute;
+        right: 2rem;
+        top: 2.5rem;
+
+        .f2-title-text {
+            font-weight: 500;
+        }
+    }
+}

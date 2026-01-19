@@ -1,0 +1,108 @@
+<mat-card class="f2-page-content">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>{{ chatDetails()?.name }}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>ID: {{ chatDetails()?.chatId }} </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                <mat-button-toggle-group
+                    name="fontStyle"
+                    aria-label="Font Style"
+                    [hideMultipleSelectionIndicator]="true"
+                    multiple
+                >
+                    <mat-button-toggle
+                        [checked]="chatDetails()?.instanceId"
+                        [disabled]="!chatDetails()?.instanceId"
+                        value="italic"
+                        >Agent</mat-button-toggle
+                    >
+                    <mat-button-toggle
+                        [checked]="chatDetails()?.botId"
+                        [disabled]="!chatDetails()?.botId"
+                        value="bold"
+                        >Bot</mat-button-toggle
+                    >
+                    <mat-button-toggle
+                        [checked]="chatDetails()?.aiAgentId"
+                        [disabled]="!chatDetails()?.aiAgentId"
+                        value="italic"
+                        >AI Agent</mat-button-toggle
+                    >
+                </mat-button-toggle-group>
+            </mat-list-item>
+
+            <mat-list-item style="margin-top: 15px">
+                Alias: <strong>{{ chatDetails()?.alias }}</strong>
+            </mat-list-item>
+
+            <mat-list-item style="display: flex; justify-content: space-between; margin-bottom: 20px">
+                <div>Created at: {{ chatDetails()?.createdAt?.toString() | date: 'short' }}</div>
+                <div>Updated at: {{ chatDetails()?.updatedAt?.toString() | date: 'short' }}</div>
+            </mat-list-item>
+
+            @if (chatDetails()?.instanceId) {
+                <mat-accordion>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState.set(true)"
+                        (closed)="panelOpenState.set(false)"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Connect Instance </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p><strong>Instance ID:</strong> {{ chatDetails()?.instanceId }}</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            }
+
+            @if (chatDetails()?.botId) {
+                <mat-accordion>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState.set(true)"
+                        (closed)="panelOpenState.set(false)"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Bot </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p><strong>Bot ID:</strong> {{ chatDetails()?.botId }}</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            }
+
+            @if (chatDetails()?.aiAgentId) {
+                <mat-accordion>
+                    <mat-expansion-panel
+                        (opened)="panelOpenState.set(true)"
+                        (closed)="panelOpenState.set(false)"
+                    >
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>AI Agent </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p><strong>AI Agent ID:</strong> {{ chatDetails()?.aiAgentId }}</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            }
+        </mat-list>
+    </mat-card-content>
+
+    <mat-card-actions style="margin-top: 20px">
+        <button
+            mat-button
+            color="primary"
+            (click)="goBack()"
+        >
+            Back
+        </button>
+
+        <button
+            mat-button
+            color="primary"
+        >
+            Edit
+        </button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,28 @@
+.instance-info {
+    list-style: none;
+    padding: 0;
+}
+
+.instance-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.instance-info li:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: bold;
+    display: inline-block;
+    width: 180px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,13 @@
+.missed-services-form {
+    display: grid;
+    gap: 10px;
+
+    .notice-comment-input {
+        height: 5rem;
+        padding: 0.7rem;
+    }
+.missed-services-list {
+    max-height: 385px;
+    overflow-y: auto;
+}
+}

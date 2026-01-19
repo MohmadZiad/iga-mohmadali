@@ -1,0 +1,71 @@
+.dropzone {
+    border: 0.2rem dashed var(--f2-border-color);
+    height: 20rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--f2-text-color);
+
+    &.file-over {
+        border-color: var(--f2-theme-primary-color);
+        background-color: var(--f2-theme-primary-light-color);
+    }
+}
+.file-name-preview,
+.upload-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.file-name-preview {
+    padding-left: 1rem;
+    background: url('/assets/icons/file.svg') left no-repeat;
+}
+
+.upload-csv-file {
+    display: none;
+}
+
+.description-dropzone {
+    .instruction {
+        font-weight: 500;
+        color: var(--f2-accent-line-color);
+    }
+
+    .example-label {
+        font-weight: 300;
+    }
+
+    .example-link {
+        color: var(--f2-accent-line-color);
+        cursor: pointer;
+        text-decoration: underline;
+        padding-left: 1rem;
+        margin-left: 0.5rem;
+        background: url('/assets/icons/file.svg') left no-repeat;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+    }
+}
+
+.f2-button.loading {
+    animation: fade-in 2s infinite;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.4;
+    }
+}

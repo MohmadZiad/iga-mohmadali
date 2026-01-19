@@ -1,0 +1,91 @@
+<div class="f2-card f2-card-content">
+    <div class="f2-table-top-services">
+        <div class="f2-card-title">
+            <app-download-menu
+                [formats]="['csv', 'excel']"
+                (selectedFormat)="downloadReport($event)"
+            />
+            <span class="f2-title-text">{{ title() }}</span>
+        </div>
+        <app-f2-table
+            [includeIndex]="true"
+            [columnOptions]="columnOptions"
+            [data]="tableData()"
+        />
+    </div>
+    <!-- TODO: It implement in next step -->
+    <!-- <div class="f2-evaluation-top-services">
+        <div class="f2-card-title f2-evaluation-header">
+            <app-download-menu />
+            <span>{{ translateService.getValue('titleRatingTopServices') }}</span>
+        </div>
+        <div class="f2-evaluation-container">
+            <div class="f2-evaluation-progress-bar">
+                <app-progress-bar
+                    [progress]="85"
+                    type="vertical"
+                    color="#E1251B"
+                />
+            </div>
+            <div class="f2-evaluation-name">What evaluation ?</div>
+            <div class="f2-evaluation-icon">
+                <img
+                    width="100%"
+                    src="assets/icons/loop-histogram.svg"
+                    alt="Loop icon"
+                />
+            </div>
+        </div>
+        <div class="f2-evaluation-container">
+            <div class="f2-evaluation-progress-bar second">
+                <app-progress-bar
+                    [progress]="65"
+                    type="vertical"
+                    color="#308099"
+                />
+            </div>
+            <div class="f2-evaluation-name">What evaluation ?</div>
+            <div class="f2-evaluation-icon">
+                <img
+                    width="100%"
+                    src="assets/icons/loop-histogram.svg"
+                    alt="Loop icon"
+                />
+            </div>
+        </div>
+        <div class="f2-evaluation-container">
+            <div class="f2-evaluation-progress-bar other">
+                <app-progress-bar
+                    [progress]="52"
+                    type="vertical"
+                    color="#D5A520"
+                />
+            </div>
+            <div class="f2-evaluation-name">What evaluation ?</div>
+            <div class="f2-evaluation-icon">
+                <img
+                    width="100%"
+                    src="assets/icons/loop-histogram.svg"
+                    alt="Loop icon"
+                />
+            </div>
+        </div>
+        <div class="f2-evaluation-container">
+            <div class="f2-evaluation-progress-bar other">
+                <app-progress-bar
+                    [progress]="30"
+                    type="vertical"
+                    color="#22B057"
+                />
+            </div>
+            <div class="f2-evaluation-name">What evaluation ?</div>
+            <div class="f2-evaluation-icon">
+                <img
+                    width="100%"
+                    src="assets/icons/loop-histogram.svg"
+                    alt="Loop icon"
+                />
+            </div>
+        </div>
+    </div> -->
+</div>

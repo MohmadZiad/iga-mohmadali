@@ -1,0 +1,18 @@
+@if (instanceDetails()) {
+    <div class="f2-card">
+        <ul class="instance-info">
+            <li><span class="label">Instance ID:</span> {{ instanceDetails()?.instanceId }}</li>
+            <li><span class="label">Alias:</span> {{ instanceDetails()?.instanceAlias }}</li>
+            <li><span class="label">Status:</span> {{ instanceDetails()?.instanceStatus }}</li>
+            <li>
+                <span class="label">Access URL:</span>
+                <a
+                    [href]="instanceDetails()?.instanceAccessUrl"
+                    target="_blank"
+                >
+                    {{ instanceDetails()?.instanceAccessUrl }}
+                </a>
+            </li>
+        </ul>
+    </div>
+}

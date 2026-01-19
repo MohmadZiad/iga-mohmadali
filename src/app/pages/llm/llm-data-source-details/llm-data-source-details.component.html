@@ -1,0 +1,62 @@
+<div class="f2-page-header-bordered">
+    <button
+        class="f2-button f2-back f2-small"
+        (click)="goBack()"
+    >
+        Back
+    </button>
+    <button
+        class="f2-button f2-discard f2-edit f2-small bordered"
+        (click)="sync()"
+    >
+        Sync
+    </button>
+</div>
+<div class="f2-page-content content">
+    <p>Data Source Details</p>
+    <div class="f2-card">
+        @if (llmDataSource$ | async; as llmDataSource) {
+            <div class="f2-card-title">
+                {{ llmDataSource.name }}
+            </div>
+            <div class="grid-container">
+                <div>
+                    <div>
+                        <span>Knowledge Base Id</span>
+                        <p>{{ llmDataSource.knowledgeBaseId }}</p>
+                    </div>
+                    <div>
+                        <span>Data Source Id</span>
+                        <p>{{ llmDataSource.dataSourceId }}</p>
+                    </div>
+                    <div>
+                        <span>S3 Folder</span>
+                        <p>{{ llmDataSource.s3Folder }}</p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Embedding Model</span>
+                        <p>{{ llmDataSource.embeddingModels }}</p>
+                    </div>
+                    <div>
+                        <span>Chunking Strategy</span>
+                        <p>{{ llmDataSource.chunkingStrategy }}</p>
+                    </div>
+                    <div>
+                        <span>Chunk Size</span>
+                        <p>{{ llmDataSource.chunkSize }}</p>
+                    </div>
+                </div>
+                <div class="wide-item">
+                    <span>OpenSearch Index</span>
+                    <p>{{ llmDataSource.opensearchIndex }}</p>
+                </div>
+                <div>
+                    <span>Sync Status</span>
+                    <p>{{ llmDataSource.syncStatus }}</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

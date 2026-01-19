@@ -1,0 +1,38 @@
+.card {
+    padding: 5px 0 0 20px;
+    border: 1px solid var(--f2-border-color);
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 5px;
+    margin: 30px;
+    filter: drop-shadow(0px 0px 10px var(--f2-drop-shadow-color));
+}
+
+.ai-agent-info {
+    list-style: none;
+    padding: 0;
+}
+
+.ai-agent-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ai-agent-info li:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: bold;
+    display: inline-block;
+    width: 180px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

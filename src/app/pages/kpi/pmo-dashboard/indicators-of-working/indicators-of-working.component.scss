@@ -1,0 +1,64 @@
+:host {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.f2-rates-card {
+    height: 165px;
+    flex: 5 1 670px;
+    display: grid;
+    align-content: space-around;
+    gap: 10px;
+
+    .f2-rates-card-title {
+        text-align: right;
+        text-wrap: nowrap;
+    }
+}
+
+.f2-total-card {
+    height: 165px;
+    width: 160px;
+    display: grid;
+    gap: 10px;
+    text-align: right;
+
+    .f2-total {
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--f2-text-color);
+    }
+
+    .f2-recent-arrivals {
+        color: var(--f2-accent-line-color);
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .f2-quarter-rating {
+        font-size: 12px;
+        font-weight: 100;
+        display: inline-flex;
+        gap: 0.1rem;
+        justify-content: right;
+
+        .positive {
+            color: #72a64a;
+        }
+        .positive:after {
+            content: '+';
+            padding-right: 1.5rem;
+            background: url('/assets/icons/positive.svg') right no-repeat;
+        }
+
+        .negative {
+            color: #e1251b;
+        }
+        .negative:after {
+            content: '-';
+            padding-right: 1.5rem;
+            background: url('/assets/icons/negative.svg') right no-repeat;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<div
+    class="popup-container"
+    [class]="{ hidden: !open() }"
+>
+    <div
+        class="custom-backdrop"
+        (click)="hide()"
+    ></div>
+    <div class="popup-content">
+        <ng-content />
+    </div>
+</div>

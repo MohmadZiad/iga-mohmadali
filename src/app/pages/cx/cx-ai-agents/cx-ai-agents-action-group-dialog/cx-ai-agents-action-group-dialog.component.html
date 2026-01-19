@@ -1,0 +1,169 @@
+<h1 mat-dialog-title>
+    @if (data.editMode) {
+        Update action group
+    } @else {
+        View action group
+    }
+</h1>
+
+<form class="action-group-form">
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Action Group Name</mat-label>
+        <input
+            matInput
+            [readonly]="!data.editMode"
+            [value]="data.actionGroup.actionGroupName"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Description</mat-label>
+        <textarea
+            matInput
+            [readonly]="!data.editMode"
+            >{{ data.actionGroup.description }}</textarea
+        >
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Action Group ID</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.actionGroupId"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Agent ID</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.agentId"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Agent Version</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.agentVersion"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Client Token</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.clientToken"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Action Group State</mat-label>
+        <input
+            matInput
+            [readonly]="!data.editMode"
+            [value]="data.actionGroup.actionGroupState"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Lambda Executor</mat-label>
+        <input
+            matInput
+            [readonly]="!data.editMode"
+            [value]="data.actionGroup.actionGroupExecutor.lambda"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Function Schema (JSON)</mat-label>
+        <textarea
+            matInput
+            [readonly]="!data.editMode"
+        >
+      {{ data.actionGroup.functionSchema }}
+    </textarea
+        >
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Created At</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.createdAt"
+        />
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="fill"
+        class="full-width"
+    >
+        <mat-label>Updated At</mat-label>
+        <input
+            matInput
+            readonly
+            [value]="data.actionGroup.updatedAt"
+        />
+    </mat-form-field>
+
+    @if (data.editMode) {
+        <div class="actions">
+            <button
+                mat-raised-button
+                color="primary"
+            >
+                Save
+            </button>
+            <button
+                mat-button
+                mat-dialog-close
+            >
+                Cancel
+            </button>
+        </div>
+    } @else {
+        <div class="actions">
+            <button
+                mat-button
+                mat-dialog-close
+            >
+                Close
+            </button>
+        </div>
+    }
+</form>

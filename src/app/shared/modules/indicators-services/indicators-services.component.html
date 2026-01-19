@@ -1,0 +1,46 @@
+<div class="f2-rates-cart-items">
+    <div
+        class="f2-rate-container"
+        *ngFor="let item of data() | keyvalue"
+    >
+        <div class="f2-rate-label">
+            <span>{{ item.value.count }}</span>
+            <span>{{ translateService.getValue('indicators.' + item.key) }}</span>
+        </div>
+        <app-progress-bar
+            class="f2-progress-bar"
+            [progress]="item.value.rate"
+            [color]="item.value.color"
+        ></app-progress-bar>
+    </div>
+    <!-- <div class="f2-rate-container">
+        <div class="f2-rate-label">
+            <span>{{ statistics().rejected }}%</span>
+            <span>{{ translateService.getValue('rejectedRateLabel') }}</span>
+        </div>
+        <app-progress-bar
+            class="f2-progress-bar"
+            [progress]="statistics().rejectedRate"
+        ></app-progress-bar>
+    </div>
+    <div class="f2-rate-container">
+        <div class="f2-rate-label">
+            <span>{{ statistics().returned }}%</span>
+            <span>{{ translateService.getValue('returnedRateLabel') }}</span>
+        </div>
+        <app-progress-bar
+            class="f2-progress-bar"
+            [progress]="statistics().returnedRate"
+        ></app-progress-bar>
+    </div>
+    <div class="f2-rate-container">
+        <div class="f2-rate-label">
+            <span>{{ statistics().inProgress }}%</span>
+            <span>{{ translateService.getValue('inProgressRateLabel') }}</span>
+        </div>
+        <app-progress-bar
+            class="f2-progress-bar"
+            [progress]="statistics().inProgressRate"
+        ></app-progress-bar>
+    </div> -->
+</div>

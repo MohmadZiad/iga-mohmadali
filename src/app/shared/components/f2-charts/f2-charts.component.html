@@ -1,0 +1,8 @@
+<div
+    #echartsInstance
+    class="chart"
+    echarts
+    [options]="chartOption()"
+    [loading]="!data()"
+    (chartInit)="onChartInit($event)"
+></div>

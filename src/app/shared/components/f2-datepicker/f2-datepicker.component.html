@@ -1,0 +1,28 @@
+<mat-form-field class="f2-datepicker">
+    <mat-date-range-input
+        [formGroup]="range"
+        [rangePicker]="rangePicker"
+    >
+        <input
+            matStartDate
+            formControlName="start"
+            placeholder="Start date"
+        />
+        <input
+            matEndDate
+            formControlName="end"
+            placeholder="End date"
+        />
+    </mat-date-range-input>
+    <mat-datepicker-toggle
+        matSuffix
+        [for]="rangePicker"
+    >
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-date-range-picker
+        #rangePicker
+        (closed)="onChangeDate()"
+    >
+    </mat-date-range-picker>
+</mat-form-field>

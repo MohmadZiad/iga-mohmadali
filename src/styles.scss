@@ -1,0 +1,174 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+@forward 'margins';
+@forward 'f2-common-design';
+@forward 'fonts';
+
+html {
+    @include mat.theme(
+        (
+            color: (
+                theme-type: light,
+                primary: mat.$azure-palette,
+                tertiary: mat.$blue-palette,
+            ),
+            typography: 'Milliard, sans-serif',
+            density: 0,
+        )
+    );
+}
+
+:root {
+    --f2-theme-primary-color: #308099;
+    --f2-theme-primary-light-color: #f0f6f8;
+    --f2-theme-secondary-color: #ffffff;
+    --f2-text-color: #333333;
+    --f2-text-title-color: #0d2646;
+    --f2-accent-text-color: #c89211;
+    --f2-placeholder-color: rgba(33, 33, 33, 0.3);
+    --f2-subtext-color: rgba(33, 33, 33, 0.6);
+    --f2-error-color: #e31837;
+    --f2-accent-line-color: #ed973b;
+    --f2-accent-line-light-color: #f7ae0d;
+    --f2-accent-line-blue-color: #4a61a8;
+    --f2-accent-line-green-color: #7bab64;
+    --f2-border-color: #e9ebef;
+    --f2-dark-blue-color: #072040;
+    --f2-disabled-button-color: #e0e0e0;
+    --f2-disabled-background-color: #999999;
+    --f2-disabled-button-text-color: #999999;
+    --f2-paginator-text-color: #999999;
+    --f2-card-content-color: #999999;
+    --f2-card-content-value-color: #555555;
+    --f2-report-card-content-color: #53575e;
+    --f2-select-icon-color: #d9d9d9;
+    --f2-chat-message-background-color: #f2f4f8;
+    --f2-chat-message-date-color: #c4c4c4;
+    --f2-inactive-label-text-color: #667085;
+
+    --f2-drop-shadow-color: rgba(0, 0, 0, 0.05);
+    --f2-menu-shadow-color: rgba(0, 0, 0, 0.1);
+    --f2-table-row-border-color: rgba(0, 0, 0, 0.12); // new
+    --f2-table-header-text-color: rgba(52, 52, 52, 0.5);
+    --f2-page-background-color: #fafbfc;
+
+    // Redefined Variables to Material on self colors
+    --mat-menu-item-hover-state-layer-color: var(--f2-theme-primary-light-color);
+    --mat-menu-container-color: var(--f2-theme-secondary-color);
+    --mat-select-panel-background-color: var(--f2-theme-secondary-color);
+    --mdc-filled-text-field-container-color: var(--f2-theme-secondary-color);
+    --mdc-dialog-container-color: var(--f2-theme-secondary-color);
+    --mat-sidenav-container-background-color: var(--f2-theme-secondary-color);
+
+    // Datepicker
+    --mat-datepicker-calendar-container-background-color: var(--f2-theme-secondary-color);
+    //--mat-datepicker-calendar-container-elevation-shadow:
+    //    0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    //--mat-datepicker-calendar-container-shape: 4px; // border radius
+
+    // Spinner
+    --mdc-circular-progress-active-indicator-color: var(--f2-theme-primary-color);
+
+    // Select
+    --mdc-outlined-text-field-outline-color: var(--f2-border-color);
+    --mdc-outlined-text-field-hover-outline-color: var(--f2-theme-primary-color);
+    --mdc-outlined-text-field-focus-outline-color: var(--f2-theme-primary-color);
+    --mdc-outlined-text-field-focus-outline-width: 1px;
+    --mdc-outlined-text-field-container-shape: 5px; // border radius
+    --mdc-outlined-text-field-error-outline-color: var(--f2-error-color);
+    --mat-select-placeholder-text-color: var(--f2-placeholder-color);
+    --mat-form-field-container-height: 40px;
+    --mat-form-field-container-vertical-padding: 8px;
+    --mat-option-selected-state-label-text-color: var(--f2-theme-primary-color);
+    --mat-option-selected-state-layer-color: var(--f2-theme-secondary-color);
+    --mat-option-focus-state-layer-color: var(--f2-theme-primary-light-color);
+    --mat-option-focus-state-label-text-color: var(--f2-theme-primary-color);
+    --mdc-list-list-item-hover-label-text-color: var(--f2-theme-primary-color);
+    --mdc-list-list-item-hover-state-layer-color: var(--f2-theme-primary-color);
+    --mat-option-hover-state-layer-color: var(--f2-theme-primary-light-color);
+
+    @include mat.tabs-overrides(
+        (
+            active-label-text-color: var(--f2-dark-blue-color),
+            inactive-label-text-color: var(--f2-inactive-label-text-color),
+            active-indicator-color: var(--f2-dark-blue-color),
+            inactive-hover-label-text-color: var(--f2-dark-blue-color),
+            active-focus-indicator-color: var(--f2-dark-blue-color),
+            active-hover-indicator-color: var(--f2-dark-blue-color),
+            label-text-size: 16px,
+            label-text-font: 'Roboto',
+            label-text-weight: 500,
+        )
+    );
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Milliard', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--f2-text-color);
+}
+
+p {
+    margin: 1rem 0;
+}
+
+.f2-control-label {
+    display: block;
+}
+
+.f2-input {
+    display: block;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.format-menu-item {
+    text-transform: uppercase;
+}
+
+textarea {
+    resize: none;
+}
+
+.mirror-view {
+    transform: scaleX(-1);
+}
+
+// Angular Material Select - Custom arrow icon
+.mat-mdc-select-arrow-wrapper {
+    background: url(/assets/icons/select-arrow.svg) 52% center no-repeat;
+
+    .mat-mdc-select-arrow {
+        opacity: 0;
+    }
+}
+
+app-create-project {
+    mat-form-field.f2-datepicker {
+        .mat-mdc-text-field-wrapper {
+            border-radius: 8px;
+            border: 1px solid #d5d7da;
+        }
+    }
+}
+
+// .mat-mdc-form-field-subscript-wrapper {
+//     display: none;
+// }

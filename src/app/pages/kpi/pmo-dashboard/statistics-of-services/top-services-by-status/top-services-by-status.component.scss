@@ -1,0 +1,72 @@
+:host {
+    flex: 1;
+    min-width: 500px;
+}
+.f2-most-rejected-services-container {
+    display: grid;
+    gap: 25px;
+
+    .f2-progress-bars {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+        flex-direction: row-reverse;
+
+        .f2-service {
+            display: grid;
+            grid-template-columns: minmax(150px, 240px) 60px 1fr;
+            gap: 10px;
+
+            .f2-service-labels {
+                text-align: right;
+                padding: 0 10px;
+
+                .f2-service-values {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+
+            .f2-service-name {
+                color: var(--f2-text-color);
+                align-self: center;
+                word-wrap: break-word;
+            }
+
+            .f2-service-progress-circle {
+                height: 60px;
+                width: 60px;
+            }
+
+            .f2-service-entity {
+                // grid-column: 1 / span 2;
+
+                display: grid;
+                grid-template-columns: 1fr 25px;
+                gap: 10px;
+                align-items: center;
+
+                text-align: right;
+                word-wrap: break-word;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .f2-logo-container {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--f2-theme-primary-light-color);
+
+        .f2-logo {
+            position: absolute;
+            height: 70%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

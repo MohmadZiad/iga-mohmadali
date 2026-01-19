@@ -1,0 +1,68 @@
+<div class="f2-page-content">
+    <div class="f2-card">
+        <div class="f2-card-title">
+            <div class="f2-title-text">Upload KPI's</div>
+        </div>
+        <div
+            appDnd
+            class="dropzone"
+            (fileDropped)="onFileDropped($event)"
+        >
+            <input
+                type="file"
+                class="upload-csv-file"
+                (change)="fileBrowserHandler($event)"
+                #fileDropCSV
+            />
+            @if (report.filename) {
+                <div class="file-name-preview mb16">
+                    {{ report.filename }}
+                </div>
+                <button
+                    class="f2-button f2-cancel"
+                    (click)="onClickCancel()"
+                >
+                    Remove File
+                </button>
+            } @else {
+                <div class="upload-label">
+                    Drag & Drop Excel file
+                    <p>or</p>
+                </div>
+                <div class="upload-button">
+                    <button
+                        class="f2-button"
+                        (click)="fileDropCSV.click()"
+                    >
+                        Browse
+                    </button>
+                </div>
+            }
+        </div>
+        <div class="description-dropzone">
+            <span class="instruction">*Drop your Excel file to upload KPI's</span>
+            <p class="example-label">
+                Please see an example of the Excel file here:<span
+                    class="example-link"
+                    (click)="downloadExampleFile()"
+                    >Monthly Report Template.xlsx</span
+                >
+            </p>
+        </div>
+        <div class="f2-card-footer">
+            <button
+                class="f2-button f2-cancel"
+                (click)="onClickCancel()"
+            >
+                Cancel
+            </button>
+            <button
+                class="f2-button"
+                (click)="onClickUpload()"
+                [disabled]="!report.filename || !fileContent.length"
+            >
+                Upload Metrics
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+.f2-rates-cart-items {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+
+    .f2-rate-container {
+        flex: 0 1 250px;
+        width: 250px;
+        display: grid;
+        gap: 15px;
+
+        .f2-rate-label {
+            display: flex;
+            gap: 10px;
+            text-wrap: nowrap;
+            justify-content: space-between;
+        }
+    }
+}

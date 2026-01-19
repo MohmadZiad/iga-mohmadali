@@ -1,0 +1,19 @@
+:host {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-rows: 50px 1fr;
+
+    .f2-page-header {
+        align-content: center;
+        margin-top: 1rem;
+
+        .f2-header-title {
+            align-content: center;
+        }
+    }
+
+    .f2-card {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}

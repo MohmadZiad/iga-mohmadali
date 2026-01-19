@@ -1,0 +1,18 @@
+<div class="f2-page-content">
+    @for (instance of connectInstanceList(); track instance.instanceId) {
+        <div
+            (click)="onInstanceClick(instance)"
+            class="f2-square-tile f2-clickable"
+        >
+            <div class="f2-tile-menu">
+                <img
+                    src="/assets/icons/menu-icon.svg"
+                    alt="options"
+                />
+            </div>
+            <div class="f2-tile-title">{{ instance.instanceAlias }}</div>
+            <div class="f2-tile-text">{{ instance.createdAt | date: 'longDate' }}</div>
+            <p class="f2-accent-line">{{ instance.instanceStatus }}</p>
+        </div>
+    }
+</div>

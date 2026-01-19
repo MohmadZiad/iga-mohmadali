@@ -1,0 +1,20 @@
+<div class="f2-page-content">
+    <div class="f2-page-tile-wrapper">
+        @for (chat of chatList(); track chat.chatId) {
+            <div
+                (click)="onChatClick(chat)"
+                class="f2-square-tile f2-clickable"
+            >
+                <div class="f2-tile-menu">
+                    <img
+                        src="/assets/icons/menu-icon.svg"
+                        alt="options"
+                    />
+                </div>
+                <div class="f2-tile-title">{{ chat.name }}</div>
+                <div class="f2-tile-text">Alias: {{ chat.alias }}</div>
+                <p class="f2-accent-line">{{ chat.createdAt.toString() | date: 'short' }}</p>
+            </div>
+        }
+    </div>
+</div>

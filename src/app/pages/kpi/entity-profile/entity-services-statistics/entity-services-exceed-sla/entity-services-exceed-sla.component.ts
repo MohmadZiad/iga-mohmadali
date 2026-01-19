@@ -1,0 +1,92 @@
+import { Component, computed, inject, input, signal } from '@angular/core';
+
+import {
+    F2TableColumnOption,
+    F2TableComponent,
+    prepareTableDataToCSV,
+    prepareTableDataToExcel,
+} from '../../../../../shared/components/f2-table/f2-table.component';
+import { DownloadMenuComponent } from '../../../../../shared/components/download-menu/download-menu.component';
+import { TranslateService } from '../../../../../data/translate/translate.service';
+import { ServiceStatistics } from '../../../../../data/api-services/service/models';
+import DownloadService from '../../../../../shared/services/download.service';
+
+@Component({
+    selector: 'app-entity-services-exceed-sla',
+    imports: [DownloadMenuComponent, F2TableComponent],
+    templateUrl: './entity-services-exceed-sla.component.html',
+    styleUrl: './entity-services-exceed-sla.component.scss',
+})
+export class EntityServicesExceedSlaComponent {
+    translateService = inject(TranslateService);
+
+    title = signal(this.translateService.getValue('titleServiceExceedSLA'));
+    reportFormats = ['csv', 'excel'];
+    dataServicesExceedSLA = input.required({
+        transform: (res: ServiceStatistics[]) => {
+            return res
+                .concat()
+                .filter((item) => !!item.countExceedSLA)
+                .sort((a, b) => b.rateExceedSLA - a.rateExceedSLA);
+        },
+    });
+    tableData = computed(() => this.dataServicesExceedSLA().slice(0, 10));
+    readonly columnOptions: F2TableColumnOption[] = [
+        {
+            key: 'rangeDays',
+            label: this.translateService.getValue('durationPeriod'),
+        },
+        {
+            key: 'averageDays',
+            label: this.translateService.getValue('averageDays'),
+        },
+        {
+            key: 'rateExceedSLA',
+            label: this.translateService.getValue('rateExceedSLA'),
+            unit: '%',
+            color: '#ED973B',
+        },
+        {
+            key: 'countExceedSLA',
+            label: this.translateService.getValue('countExceedSLA'),
+            color: '#0D2646',
+        },
+        {
+            key: 'sla',
+            label: this.translateService.getValue('SLA'),
+        },
+        {
+            key: 'countCompletedOrders',
+            label: this.translateService.getValue('countCompletedOrders'),
+        },
+        {
+            key: 'isExistsApprovalDependencies',
+            label: this.translateService.getValue('isExistsApprovalDependencies'),
+        },
+        {
+            key: 'serviceName',
+            label: this.translateService.getValue('service'),
+            isBig: true,
+        },
+    ];
+
+    downloadReport(format: string) {
+        switch (format) {
+            case 'csv':
+                DownloadService.downloadCsv(
+                    prepareTableDataToCSV<ServiceStatistics>(this.dataServicesExceedSLA(), this.columnOptions),
+                    `report_exceed_sla_service${Date.now()}.csv`
+                );
+                break;
+            case 'excel':
+                DownloadService.downloadExcel(
+                    prepareTableDataToExcel<ServiceStatistics>(this.dataServicesExceedSLA(), this.columnOptions),
+                    `report_exceed_sla_service${Date.now()}.xlsx`
+                );
+                break;
+            default:
+                console.log('Unsupported format');
+                return;
+        }
+    }
+}

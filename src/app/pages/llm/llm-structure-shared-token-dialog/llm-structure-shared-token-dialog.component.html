@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>
+    @if (data?.editMode) {
+        Update Shared Token
+    } @else {
+        Add Shared Token
+    }
+</h2>
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content class="content">
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('description')) }"
+                >
+                    Description
+                </label>
+                <input
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="description"
+                    formControlName="description"
+                    placeholder="Enter Description"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('description'))) {
+                        {{ descriptionErrors }}
+                    }
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            class="f2-button f2-discard"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            @if (data?.editMode) {
+                Update
+            } @else {
+                Add
+            }
+        </button>
+    </mat-dialog-actions>
+</form>

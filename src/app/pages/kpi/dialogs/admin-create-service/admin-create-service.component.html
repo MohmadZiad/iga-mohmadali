@@ -1,0 +1,100 @@
+<div class="dialog-header">
+    @if (!data.serviceItem) {
+        <h2 mat-dialog-title>Add new Service</h2>
+        <div class="f2-subtitle">Create a new service in the system</div>
+    } @else {
+        <h2 mat-dialog-title>Update Service</h2>
+        <div class="f2-subtitle">Update service in the system</div>
+    }
+</div>
+
+<mat-divider />
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content class="create-service-content">
+        <div class="row-form-content">
+            <label class="f2-input-label required">Select Entity: </label>
+            <mat-form-field class="f2-select">
+                <mat-label>Entity</mat-label>
+                <mat-select formControlName="selectedAccount">
+                    @for (account of accountList; track account.accountId) {
+                        <mat-option [value]="account">{{ account.accountName }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="row-form-content">
+            <label class="f2-input-label required">Service Code:</label>
+            <mat-form-field appearance="outline">
+                <span matTextPrefix>{{ getPrefixServiceCode() }}</span>
+                <input
+                    type="text"
+                    matInput
+                    class="f2-input-field"
+                    formControlName="serviceCode"
+                    required
+                />
+                @if (form.hasError('pattern', 'serviceCode')) {
+                    <mat-error>Invalid format Ex: E.1.B.2 or W.1.R.2</mat-error>
+                }
+                @if (form.hasError('required', 'serviceCode')) {
+                    <mat-error>Field is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+
+        <div class="row-form-content">
+            <label class="f2-input-label required">Service Name</label>
+            <mat-form-field appearance="outline">
+                <input
+                    type="text"
+                    matInput
+                    class="f2-input-field"
+                    formControlName="serviceName"
+                    required
+                />
+                @if (form.hasError('required', 'serviceName')) {
+                    <mat-error>Field is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+
+        <div class="row-form-content">
+            <label class="f2-input-label required">SLA:</label>
+            <mat-form-field appearance="outline">
+                <input
+                    type="number"
+                    matInput
+                    class="f2-input-field"
+                    formControlName="sla"
+                    required
+                />
+                @if (form.hasError('required', 'sla')) {
+                    <mat-error>Field is required</mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button
+            class="f2-button f2-discard"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            @if (data.serviceItem) {
+                Edit
+            } @else {
+                Create
+            }
+        </button>
+    </mat-dialog-actions>
+</form>

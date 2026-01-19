@@ -1,0 +1,61 @@
+<div class="card">
+    <form>
+        <h1 class="f2-title-text">Agent setup</h1>
+
+        <label class="f2-input-label">Agent name</label>
+        <input
+            id="name"
+            type="text"
+            class="f2-input-field full-width"
+            [value]="aiAgentDetails()?.agentName"
+        />
+        <div class="instruction-hints mb16">
+            <div>Valid characters are a-z, A-Z, 0-9, _ (underscore) and - (hyphen). The name can have up to 100 characters.</div>
+        </div>
+
+        <label class="f2-input-label">Agent description - <i>optional</i> </label>
+        <input
+            id="description"
+            type="text"
+            class="f2-input-field full-width"
+            [value]="aiAgentDetails()?.description"
+        />
+        <div class="instruction-hints mb16">
+            <div>The description can have up to 200 characters.</div>
+        </div>
+
+        <label class="f2-input-label">Instructions for the Agent</label>
+        <mat-form-field class="full-width">
+            <mat-label>
+                Provide clear and specific instructions for the task the Agent will perform. You can also provide certain style
+                and tone.
+            </mat-label>
+            <textarea
+                matInput
+                [value]="aiAgentDetails()?.instruction"
+                placeholder="Ex. It makes me feel..."
+            ></textarea>
+        </mat-form-field>
+        <div class="instruction-hints mt16">
+            <div>This instruction must have a minimum of 40 characters.</div>
+            <div>{{ aiAgentDetails()?.instruction?.length ?? 0 }} / 1000</div>
+        </div>
+
+        <h1 class="f2-title-text mb5 mt16">Action groups</h1>
+        <app-paginated-table
+            class="mb22"
+            [options]="tableOptions"
+            (columnClicked)="columnActionGroupClicked($event)"
+        ></app-paginated-table>
+
+        <div class="button-groups">
+            <button
+                mat-button
+                [disabled]="true"
+            >
+                Prepare
+            </button>
+            <button mat-button>Save</button>
+        </div>
+    </form>
+</div>

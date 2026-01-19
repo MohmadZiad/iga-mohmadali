@@ -1,0 +1,37 @@
+@if (aiAgentDetails()) {
+    <div class="card">
+        <h3>AI Agent Details</h3>
+        <ul class="ai-agent-info">
+            <li><span class="label">Agent Name:</span> {{ aiAgentDetails()?.agentName }}</li>
+            <li><span class="label">Agent ID:</span> {{ aiAgentDetails()?.agentId }}</li>
+            <li><span class="label">Agent Alias ID:</span> {{ aiAgentDetails()?.agentAliasId }}</li>
+            <li><span class="label">Agent Version:</span> {{ aiAgentDetails()?.agentVersion }}</li>
+
+            <li><span class="label">Agent Collaboration:</span> {{ aiAgentDetails()?.agentCollaboration }}</li>
+            <li><span class="label">Foundation Model:</span> {{ aiAgentDetails()?.foundationModel }}</li>
+            <li><span class="label">IDLE session TTL in sec:</span> {{ aiAgentDetails()?.idleSessionTTLInSeconds }}</li>
+            <li><span class="label">LLM Structure ID:</span> {{ aiAgentDetails()?.llmStructureId }}</li>
+            <li><span class="label">Knowledge Base ID:</span> {{ aiAgentDetails()?.knowledgeBaseId }}</li>
+            <li><span class="label">Agent Status:</span> {{ aiAgentDetails()?.agentStatus }}</li>
+            <li><span class="label">Orchestration Type:</span> {{ aiAgentDetails()?.orchestrationType }}</li>
+
+            <li><span class="label">Prepared At:</span> {{ aiAgentDetails()?.preparedAt | date: 'short' }}</li>
+            <li><span class="label">Created At:</span> {{ aiAgentDetails()?.createdAt | date: 'short' }}</li>
+            <li><span class="label">Updated At:</span> {{ aiAgentDetails()?.updatedAt | date: 'short' }}</li>
+
+            <li>
+                <span class="label">Description:</span>
+                <span style="display: inline-block; max-width: 80%; word-break: break-word">
+                    {{ aiAgentDetails()?.description }}
+                </span>
+            </li>
+
+            <li>
+                <span class="label">Main Instruction</span>
+                <span style="display: inline-block; max-width: 80%; word-break: break-word">
+                    {{ aiAgentDetails()?.instruction }}
+                </span>
+            </li>
+        </ul>
+    </div>
+}

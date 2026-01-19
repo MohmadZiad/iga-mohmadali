@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="page">
+        <div
+            class="form"
+            [formGroup]="projectForm"
+        >
+            <div class="header">
+                <div class="title">Create Project</div>
+                <div class="description">Create and register a new project in the system.</div>
+            </div>
+
+            <div class="content">
+                <div class="field">
+                    <div class="row">
+                        <label
+                            class="required"
+                            for="projectName"
+                        >
+                            Project Name
+                        </label>
+                        <input
+                            type="text"
+                            id="projectName"
+                            class="f2-input-field"
+                            [class.ng-invalid]="submitted && projectForm.controls['projectName'].invalid"
+                            placeholder="A unique title for the project"
+                            formControlName="projectName"
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="row">
+                        <label for="projectDescription"> Project Description </label>
+                        <textarea
+                            type="text"
+                            id="projectDescription"
+                            class="f2-input-field"
+                            [class.ng-invalid]="submitted && projectForm.controls['projectDescription'].invalid"
+                            placeholder="Short summary of the project objective..."
+                            formControlName="projectDescription"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="row">
+                        <label> Start Date - End Date </label>
+                        <app-f2-datepicker
+                            class="datepicker"
+                            (valueChange)="onChangeDateRange($event)"
+                            [startDay]="dateRange.startDate"
+                            [endDay]="dateRange.endDate"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <button
+                    class="f2-button f2-cancel"
+                    (click)="onClear()"
+                >
+                    Cancel
+                </button>
+                <button
+                    class="f2-button"
+                    (click)="onAdd()"
+                >
+                    Create & Add Services
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

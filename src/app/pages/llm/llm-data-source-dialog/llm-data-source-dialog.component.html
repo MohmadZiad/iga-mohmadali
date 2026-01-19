@@ -1,0 +1,163 @@
+<h2 mat-dialog-title>
+    @if (data?.editMode) {
+        Update Data Source
+    } @else {
+        Add New Data Source
+    }
+</h2>
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content class="content">
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label required"
+                    [ngClass]="{ required: isRequired(form.get('name')) }"
+                >
+                    Name
+                </label>
+                <input
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="name"
+                    formControlName="name"
+                    placeholder="Enter Name"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('name'))) {
+                        {{ nameErrors }}
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('chunkingStrategy')) }"
+                >
+                    Chunking Strategy
+                </label>
+                <mat-form-field
+                    appearance="outline"
+                    class="full-width"
+                >
+                    <mat-select
+                        placeholder="Select Chunking Strategy"
+                        id="chunkingStrategy"
+                        formControlName="chunkingStrategy"
+                        disableOptionCentering
+                    >
+                        @for (chunkingStrategy of chunkingStrategies; track chunkingStrategy) {
+                            <mat-option [value]="chunkingStrategy">
+                                {{ chunkingStrategy }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('chunkingStrategy'))) {
+                        Chunking Strategy is required
+                    }
+                </div>
+            </div>
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('chunkSize')) }"
+                >
+                    Chunk Size
+                </label>
+                <input
+                    type="number"
+                    class="f2-input-field full-width"
+                    id="chunkSize"
+                    formControlName="chunkSize"
+                    min="20"
+                    max="8192"
+                    step="1"
+                    placeholder="Enter Chunk Size"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('chunkSize'))) {
+                        Chunk Size is required
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('chunkSize')) }"
+                >
+                    Embedding Models
+                </label>
+                <mat-form-field
+                    appearance="outline"
+                    class="full-width"
+                >
+                    <mat-select
+                        placeholder="Select Embedding Models"
+                        id="embeddingModels"
+                        formControlName="embeddingModels"
+                        disableOptionCentering
+                    >
+                        @for (embeddingModel of embeddingModels; track embeddingModel) {
+                            <mat-option [value]="embeddingModel">
+                                {{ embeddingModel }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('embeddingModels'))) {
+                        Embedding Models is required
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('s3Folder')) }"
+                >
+                    S3 Folder
+                </label>
+                <input
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="s3Folder"
+                    formControlName="s3Folder"
+                    placeholder="Enter S3 Folder"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('s3Folder'))) {
+                        S3 Folder is required
+                    }
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            class="f2-button f2-discard"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            @if (data?.editMode) {
+                Update
+            } @else {
+                Add
+            }
+        </button>
+    </mat-dialog-actions>
+</form>

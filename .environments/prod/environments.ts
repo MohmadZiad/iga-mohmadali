@@ -1,0 +1,19 @@
+// F2 Core Platform Env Variables
+export const APP_URL = 'https://kpi.bahrain.bh';
+export const API_URL = 'https://n45joal3p8.execute-api.me-south-1.amazonaws.com/f2-api';
+export const CCP_URL = 'https://iga-cb.my.connect.aws/ccp-v2';
+export const APP_VERSION = '1.0';
+export const ROOT_ACCOUNT = '00000000-0000-0000-0000-000000000000';
+export const AWS_REGION = 'me-south-1';
+
+// Features flags
+export const FEATURES_FLAGS = {
+    dashboard: true,
+    pm: true,
+    llm: false,
+    cx: false,
+
+    settings: false,
+};
+
+// Custom Env Variables

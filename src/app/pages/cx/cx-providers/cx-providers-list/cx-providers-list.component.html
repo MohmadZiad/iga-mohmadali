@@ -1,0 +1,24 @@
+<div class="f2-page-content">
+    <div class="f2-page-tile-wrapper">
+        @if (providers()) {
+            @for (provider of providers(); track provider.id) {
+                <div class="f2-square-tile f2-clickable">
+                    <div class="f2-tile-menu">
+                        <img
+                            src="/assets/icons/menu-icon.svg"
+                            alt="Menu"
+                        />
+                    </div>
+                    <div class="f2-tile-img-container">
+                        <img
+                            alt="Icon"
+                            src=""
+                        />
+                    </div>
+
+                    <div class="f2-tile-title">{{ provider.name }}</div>
+                </div>
+            }
+        }
+    </div>
+</div>

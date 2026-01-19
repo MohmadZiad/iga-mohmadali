@@ -1,0 +1,66 @@
+<div class="f2-filter-modal-container">
+    <mat-form-field class="f2-select">
+        <mat-label>{{ translateService.getValue('filterByService') }}</mat-label>
+        <mat-select
+            [disableRipple]="true"
+            [(value)]="selectedServices"
+            multiple
+        >
+            @for (serviceSla of serviceList$ | async; track serviceSla.serviceId) {
+                @if (!selectedAccounts.length || selectedAccounts.includes(serviceSla.accountId)) {
+                    <mat-option
+                        [value]="serviceSla.serviceId"
+                        [disabled]=""
+                        >{{ serviceSla.serviceName }}</mat-option
+                    >
+                }
+            }
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="f2-select">
+        <mat-label>{{ translateService.getValue('filterByEntity') }}</mat-label>
+        <mat-select
+            [(value)]="selectedAccounts"
+            (valueChange)="clearSelectedServices()"
+            multiple
+        >
+            @for (account of accountList$ | async; track account.accountId) {
+                <mat-option [value]="account.accountId">{{ account.accountName }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="f2-datepicker">
+        <mat-date-range-input
+            [formGroup]="range"
+            [rangePicker]="rangePicker"
+        >
+            <input
+                matStartDate
+                formControlName="start"
+                [value]="range.value.start"
+                placeholder="Start date"
+            />
+            <input
+                matEndDate
+                formControlName="end"
+                [value]="range.value.end"
+                placeholder="End date"
+            />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+            matSuffix
+            [for]="rangePicker"
+        >
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker> </mat-date-range-picker>
+    </mat-form-field>
+</div>
+<div class="f2-filter-modal-actions">
+    <button
+        class="f2-button"
+        (click)="onApplyFilters()"
+    >
+        Apply Filters
+    </button>
+</div>

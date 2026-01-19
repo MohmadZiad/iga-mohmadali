@@ -1,0 +1,14 @@
+<div
+    class="progress-bar"
+    [class]="type()"
+>
+    <div class="progress-bar-text">{{ progress() }}%</div>
+    <div
+        class="progress-bar-inner"
+        [style]="{
+            width: type() === 'horizontal' ? progress() + '%' : null,
+            height: type() === 'vertical' ? progress() + '%' : null,
+            'background-color': color(),
+        }"
+    ></div>
+</div>

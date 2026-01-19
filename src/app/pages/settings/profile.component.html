@@ -1,0 +1,82 @@
+<div class="f2-page-content content">
+    <mat-tab-group>
+        <mat-tab label="Change Name">
+            <div class="f2-card">
+                <form
+                    [formGroup]="changeNameForm"
+                    (ngSubmit)="submitUserData()"
+                >
+                    <div class="row mt8">
+                        <div>
+                            <label class="f2-input-label"> Full Name </label>
+                            <input
+                                type="text"
+                                class="f2-input-field full-width"
+                                id="fullName"
+                                formControlName="fullName"
+                                placeholder="Enter Full Name"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label class="f2-input-label"> Mobile Number </label>
+                            <input
+                                type="text"
+                                class="f2-input-field full-width"
+                                id="mobileNumber"
+                                formControlName="mobileNumber"
+                                placeholder="Enter Mobile Number"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        class="f2-button f2-submit"
+                        type="submit"
+                    >
+                        Save
+                    </button>
+                </form>
+            </div>
+        </mat-tab>
+        <mat-tab label="Change Password">
+            <div class="f2-card">
+                <form
+                    [formGroup]="changePasswordForm"
+                    (ngSubmit)="submitNewPassword()"
+                >
+                    <div class="row mt8">
+                        <div>
+                            <label class="f2-input-label"> New Password </label>
+                            <input
+                                type="password"
+                                class="f2-input-field full-width"
+                                id="newPassword"
+                                formControlName="newPassword"
+                                placeholder="Enter New Password"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label class="f2-input-label"> Confirm New Password </label>
+                            <input
+                                type="password"
+                                class="f2-input-field full-width"
+                                id="confirmNewPassword"
+                                formControlName="confirmNewPassword"
+                                placeholder="Enter New Password"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        class="f2-button f2-submit"
+                        type="submit"
+                    >
+                        Save
+                    </button>
+                </form>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

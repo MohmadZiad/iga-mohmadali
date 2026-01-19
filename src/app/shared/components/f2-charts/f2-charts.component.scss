@@ -1,0 +1,10 @@
+:host {
+    height: 100%;
+    display: block;
+}
+
+.chart {
+    min-height: 400px;
+    max-height: 650px;
+    height: inherit;
+}

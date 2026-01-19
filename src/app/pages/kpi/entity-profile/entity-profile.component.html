@@ -1,0 +1,73 @@
+<div class="f2-page-header">
+    <div class="f2-filter-container">
+        <button
+            class="f2-button f2-page-download-menu"
+            [matMenuTriggerFor]="downloadPageMenu"
+        >
+            <span>Download</span>
+        </button>
+        <mat-menu #downloadPageMenu>
+            @for (child of menuItems(); track $index) {
+                <button
+                    mat-menu-item
+                    [matMenuTriggerFor]="itemMenu"
+                >
+                    {{ child.title() }}
+                </button>
+                <mat-menu #itemMenu>
+                    @for (format of child.reportFormats; track format) {
+                        <button
+                            class="format-menu-item"
+                            mat-menu-item
+                            (click)="child.downloadReport(format)"
+                        >
+                            {{ format }}
+                        </button>
+                    }
+                </mat-menu>
+            }
+        </mat-menu>
+        <mat-form-field class="f2-select">
+            <mat-label>{{ translateService.getValue('entity') }}:</mat-label>
+            <mat-select
+                [(value)]="filterData.selectAccount"
+                (selectionChange)="confirmFiltersData()"
+                required
+            >
+                @for (account of accountList$ | async; track account.accountId) {
+                    <mat-option
+                        [value]="account.accountId"
+                        (onSelectionChange)="selectedAccount($event, account.accountName)"
+                        >{{ account.accountName }}</mat-option
+                    >
+                }
+            </mat-select>
+        </mat-form-field>
+        <app-f2-datepicker
+            class="f2-datepicker-container"
+            (valueChange)="onChangeDateRange($event)"
+        />
+    </div>
+    <div class="f2-header-title">
+        <span class="entity-page-subtitle">
+            {{ translateService.getValue('evaluationResults') }}
+        </span>
+        <span class="entity-page-title">
+            {{ translateService.getValue('entityProfile') }}
+        </span>
+        <img
+            class="ml10"
+            src="/assets/icons/chart-pie.svg"
+            alt="Page Icon"
+        />
+    </div>
+</div>
+
+<div class="f2-page-content">
+    <app-entity-indicators
+        [applyFilterData$]="applyFilterData$"
+        [entityName]="selectedEntityName"
+    />
+    <app-entity-services-statistics [applyFilterData$]="applyFilterData$" />
+    <app-entity-reporting [applyFilterData$]="applyFilterData$" />
+</div>

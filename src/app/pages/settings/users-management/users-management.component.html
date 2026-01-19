@@ -1,0 +1,22 @@
+<div class="header mt30 mb30 ml30 mr30">
+    <div class="title">
+        <img
+            src="/assets/icons/sidebar/users.svg"
+            width="40px"
+            height="40px"
+            alt=""
+        />
+        <span class="tl-ce-colored">Users Management</span>
+    </div>
+    <button
+        class="f2-button f2-submit"
+        (click)="addNewUser()"
+    >
+        + New User
+    </button>
+</div>
+<app-paginated-table
+    class="mt30 mb30 ml30 mr30"
+    [options]="tableOptions"
+    (columnClicked)="columnClicked($event)"
+></app-paginated-table>

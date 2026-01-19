@@ -1,0 +1,18 @@
+.f2-page-content.kpi-dashboard {
+    grid-template-columns: minmax(910px, 100%);
+}
+
+.overview,
+.key-metrics {
+    padding: 0 0.5rem;
+    font-weight: 600;
+}
+
+.overview {
+    color: var(--f2-accent-text-color);
+    border-left: 1px solid var(--f2-border-color);
+}
+
+.key-metrics {
+    color: var(--f2-text-title-color);
+}

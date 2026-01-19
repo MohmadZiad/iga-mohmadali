@@ -1,0 +1,19 @@
+<div class="f2-card">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="reportFormats"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <span class="f2-title-text">{{ title() }}</span>
+    </div>
+    <div class="f2-card-content">
+        <div class="f2-content-element most-requested-services">
+            <app-f2-table
+                [includeIndex]="true"
+                [columnOptions]="columnOptions"
+                [data]="tableData()"
+                (clickToRow)="goToDrillDown($event)"
+            ></app-f2-table>
+        </div>
+    </div>
+</div>

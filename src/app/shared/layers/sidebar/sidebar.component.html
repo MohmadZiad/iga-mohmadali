@@ -1,0 +1,117 @@
+<div class="main-menu" [ngClass]="{ collapsed: !isSidebarExpanded$() }" (dblclick)="toggleSidebar()">
+    <div class="main-menu__header">
+        <a routerLink="/">
+            <img
+                class="logo"
+                src="assets/svg/logo.svg"
+                alt="logo"
+            />
+        </a>
+        <span class="header-text" *ngIf="isSidebarExpanded$()">Government of Bahrain</span>
+    </div>
+    <div class="main-menu__content">
+        <mat-nav-list class="nav-menu-list">
+            @for (item of menuItems; track item) {
+                @if (item.condition) {
+                    <a
+                        class="menu-item"
+                        [routerLink]="item.path"
+                        routerLinkActive="active"
+                    >
+                        <img
+                            class="menu-item__selected-icon"
+                            [src]="item.selectedIcon"
+                            [alt]="item.name"
+                        />
+                        <img
+                            class="menu-item__icon"
+                            [src]="item.icon"
+                            [alt]="item.name"
+                        />
+                        <span class="menu-item__name" *ngIf="isSidebarExpanded$()">{{ item.name }}</span>
+                    </a>
+                }
+            }
+        </mat-nav-list>
+        <button
+            mat-fab
+            class="user-container"
+            [matMenuTriggerFor]="userMenu"
+        >
+            {{ getUser().email.charAt(0).toUpperCase() }}
+        </button>
+        <mat-menu
+            #userMenu="matMenu"
+            yPosition="above"
+        >
+            <button
+                mat-menu-item
+                (click)="logout()"
+            >
+                Logout
+            </button>
+        </mat-menu>
+    </div>
+</div>
+<div
+    class="sub-menu"
+    [ngClass]="{ closed: !isSubMenuOpened$() }"
+>
+    <div class="sub-menu__header">
+        <img
+            class="logo ml10 mb22 mt22"
+            src="assets/svg/logo.svg"
+            alt="logo"
+            routerLink="/"
+        />
+        @if (subMenuItems$().length > 0) {
+            <button
+                mat-icon-button
+                disableRipple
+                class="close-img mb22 mt22"
+                (click)="changeDisplaySubMenu()"
+            >
+                <img
+                    [class]="{ 'mirror-view': !isSubMenuOpened$() }"
+                    src="assets/icons/sidebar/sub-menu-close.svg"
+                    alt="sub-menu-close"
+                />
+            </button>
+        }
+    </div>
+    <div class="sub-menu__title mb16">
+        <span>{{ subMenuHeader$() }}</span>
+    </div>
+    <div class="sub-menu__content">
+        <mat-nav-list>
+            @for (item of subMenuItems$(); track item) {
+                <!-- TODO: Maybe need add condition for all sub menu items -->
+                @if (item.condition || item.condition === undefined) {
+                    <mat-list-item
+                        class="menu-item"
+                        [routerLink]="item.path"
+                        routerLinkActive="active"
+                    >
+                        <img
+                            matListItemIcon
+                            class="menu-item__selected-icon"
+                            [src]="item.selectedIcon"
+                            [alt]="item.name"
+                        />
+                        <img
+                            matListItemIcon
+                            class="menu-item__icon"
+                            [src]="item.icon"
+                            [alt]="item.name"
+                        />
+                        <span>{{ item.name }}</span>
+                    </mat-list-item>
+                }
+            }
+        </mat-nav-list>
+        <div class="sub-menu__footer ml8 mr8 mb8">
+            <span class="user-full-name">{{ getUser().fullName }}</span>
+            <span>v{{ appVersion }}</span>
+        </div>
+    </div>
+</div>

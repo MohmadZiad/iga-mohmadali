@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Missed Services</h2>
+<form
+    [formGroup]="form"
+    class="missed-services-form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content>
+        <div class="">Some missing services were found in the provided file:</div>
+        <div class="missed-services-list">
+            <mat-list role="list">
+                @for (missedService of data.listMissedServices; track $index) {
+                    <mat-list-item role="listitem">{{ missedService.code }} - {{ missedService.name }}</mat-list-item>
+                }
+            </mat-list>
+        </div>
+        <div>Comment:</div>
+        <textarea
+            [readonly]="!!data.viewMode"
+            class="f2-input-field full-width notice-comment-input"
+            formControlName="comment"
+        ></textarea>
+    </mat-dialog-content>
+
+    @if (!data.viewMode) {
+        <mat-dialog-actions align="end">
+            <button
+                class="f2-button f2-submit"
+                type="submit"
+            >
+                Submit
+            </button>
+        </mat-dialog-actions>
+    }
+</form>

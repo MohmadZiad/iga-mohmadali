@@ -1,0 +1,44 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    width: 230px;
+    height: 100%;
+    transition: width 0.3s ease;
+    z-index: 2;
+
+    &.collapsed {
+        width: 55px;
+    }
+}
+
+.main-content {
+    height: 100%;
+    overflow-y: auto;
+    margin-left: 230px;
+    transition: margin-left 0.3s ease;
+
+    &.collapsed {
+        margin-left: 55px;
+    }
+}
+
+@media only screen and (max-width: 930px) {
+    .sidebar {
+        width: 230px;
+
+        &.collapsed {
+            width: 55px;
+        }
+    }
+    .main-content {
+        margin-left: 230px;
+
+        &.collapsed {
+            margin-left: 55px;
+        }
+    }
+}

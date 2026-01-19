@@ -1,0 +1,375 @@
+<h2 mat-dialog-title>
+    @if (data?.editMode) {
+        Update Structure
+    } @else {
+        Add New Structure
+    }
+</h2>
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content class="content">
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('name')) }"
+                >
+                    Name
+                </label>
+                <input
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="name"
+                    formControlName="name"
+                    placeholder="Enter Name"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('name'))) {
+                        {{ nameErrors }}
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('framework')) }"
+                >
+                    Framework
+                </label>
+                <mat-form-field
+                    appearance="outline"
+                    class="full-width"
+                >
+                    <mat-select
+                        placeholder="Select Framework"
+                        id="framework"
+                        formControlName="framework"
+                        disableOptionCentering
+                    >
+                        @for (framework of frameworks; track framework) {
+                            <mat-option [value]="framework">
+                                {{ framework }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('framework'))) {
+                        Framework is required
+                    }
+                </div>
+            </div>
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('memorySize')) }"
+                >
+                    Memory Size
+                </label>
+                <input
+                    type="number"
+                    class="f2-input-field full-width"
+                    id="memorySize"
+                    formControlName="memorySize"
+                    placeholder="Enter Memory Size"
+                    min="0"
+                    max="10"
+                    step="1"
+                />
+                <p class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('memorySize'))) {
+                        Memory Size is required
+                    }
+                </p>
+            </div>
+        </div>
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('model')) }"
+                >
+                    Model
+                </label>
+                <mat-form-field
+                    appearance="outline"
+                    class="full-width"
+                >
+                    <mat-select
+                        placeholder="Select Model"
+                        id="model"
+                        formControlName="model"
+                        disableOptionCentering
+                    >
+                        @for (model of models; track model) {
+                            <mat-option [value]="model">
+                                {{ model }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('model'))) {
+                        Model is required
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('temperature')) }"
+                >
+                    Temperature
+                </label>
+                <input
+                    type="number"
+                    class="f2-input-field full-width"
+                    id="temperature"
+                    formControlName="temperature"
+                    placeholder="Enter Temperature"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('temperature'))) {
+                        Temperature is required
+                    }
+                </div>
+            </div>
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('topP')) }"
+                >
+                    Top P
+                </label>
+                <input
+                    type="number"
+                    class="f2-input-field full-width"
+                    id="topP"
+                    formControlName="topP"
+                    placeholder="Enter Top P"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('topP'))) {
+                        Top P is required
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row mt8">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('type')) }"
+                >
+                    Type
+                </label>
+                <mat-form-field
+                    appearance="outline"
+                    class="full-width"
+                >
+                    <mat-select
+                        placeholder="Select Type"
+                        id="type"
+                        formControlName="type"
+                        disableOptionCentering
+                    >
+                        @for (type of types; track type) {
+                            <mat-option [value]="type">
+                                {{ type }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('type'))) {
+                        Type is required
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (isSourceRequired()) {
+            <div class="row mt8">
+                <div>
+                    <label
+                        class="f2-input-label"
+                        [ngClass]="{ required: isRequired(form.get('sourceType')) }"
+                    >
+                        Source Type
+                    </label>
+                    <mat-form-field
+                        appearance="outline"
+                        class="full-width"
+                    >
+                        <mat-select
+                            placeholder="Select Source Type"
+                            id="sourceType"
+                            formControlName="sourceType"
+                            disableOptionCentering
+                            [disabled]="form.get('isRagApi')?.value"
+                        >
+                            @for (sourceType of sourceTypes; track sourceType) {
+                                <mat-option [value]="sourceType">
+                                    {{ sourceType }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="f2-input-error-text">
+                        @if (isErrorNeededToBeShown(form.get('sourceType'))) {
+                            Source Type is required
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt8">
+                <div>
+                    <label
+                        class="f2-input-label"
+                        [ngClass]="{ required: isRequired(form.get('type')) }"
+                    >
+                        Source ID
+                    </label>
+                    <input
+                        type="text"
+                        class="f2-input-field full-width"
+                        id="sourceId"
+                        formControlName="sourceId"
+                        placeholder="Enter Source ID"
+                    />
+                    <div class="f2-input-error-text">
+                        @if (isErrorNeededToBeShown(form.get('sourceId'))) {
+                            Source ID is required
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @if (this.form.controls['sourceType'].value === 'BEDROCK_OPENSEARCH') {
+                <div class="row mt8">
+                    <mat-form-field appearance="outline">
+                        <label
+                            class="f2-input-label"
+                            [ngClass]="{ required: isRequired(form.get('embeddingDriver')) }"
+                        >
+                            Embedding Driver
+                        </label>
+                        <mat-select
+                            placeholder="Select Embedding Driver"
+                            id="embeddingDriver"
+                            formControlName="embeddingDriver"
+                            disableOptionCentering
+                        >
+                            @for (embeddingDriver of embeddingDrivers; track embeddingDriver) {
+                                <mat-option [value]="embeddingDriver">
+                                    {{ embeddingDriver }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                        <div class="f2-input-error-text">
+                            @if (isErrorNeededToBeShown(form.get('embeddingDriver'))) {
+                                Embedding Driver is required
+                            }
+                        </div>
+                    </mat-form-field>
+                </div>
+            }
+
+            <!--        <mat-checkbox-->
+            <!--            id="isRagApi"-->
+            <!--            formControlName="isRagApi"-->
+            <!--            (change)="ragApiCheckboxEvent()"-->
+            <!--            ngDefaultControl-->
+            <!--        >-->
+            <!--            Use RetrieveAndGenerate API-->
+            <!--        </mat-checkbox>-->
+
+            <div>
+                <!--            TODO add styles-->
+                <p (click)="isAdvancedOptionShown$.set(!isAdvancedOptionShown$())">
+                    {{ isAdvancedOptionShown$() ? 'Hide' : 'Show' }} Advanced Options
+                </p>
+            </div>
+
+            @if (isAdvancedOptionShown$()) {
+                <div class="row mt8">
+                    <div>
+                        <label class="f2-input-label"> Top N </label>
+                        <input
+                            type="number"
+                            class="f2-input-field full-width"
+                            id="topN"
+                            formControlName="topN"
+                            placeholder="Enter Top N"
+                            min="0"
+                        />
+                    </div>
+                    <div>
+                        <mat-checkbox
+                            id="isHybridSearch"
+                            formControlName="isHybridSearch"
+                            ngDefaultControl
+                        >
+                            Use Hybrid Search
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row mt8">
+                    <div>
+                        <label class="f2-input-label"> Assistant Appendix </label>
+                        <input
+                            type="text"
+                            class="f2-input-field full-width"
+                            id="assistantAppendix"
+                            formControlName="assistantAppendix"
+                            placeholder="Enter Assistant Appendix"
+                        />
+                    </div>
+                </div>
+                <div class="row mt8">
+                    <div>
+                        <label class="f2-input-label"> Preamble </label>
+                        <textarea
+                            type="text"
+                            class="f2-input-field f2-textarea full-width"
+                            id="preamble"
+                            formControlName="preamble"
+                            placeholder="Enter Preamble"
+                        ></textarea>
+                    </div>
+                </div>
+            }
+        }
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            class="f2-button f2-discard"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            @if (data?.editMode) {
+                Update
+            } @else {
+                Add
+            }
+        </button>
+    </mat-dialog-actions>
+</form>

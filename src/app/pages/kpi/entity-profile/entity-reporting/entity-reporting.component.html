@@ -1,0 +1,33 @@
+<div class="f2-card">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="reportFormats"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <div class="f2-title-text">{{ translateService.getValue('titleEntityReporting') }}</div>
+    </div>
+    <div class="f2-card-content">
+        <app-f2-table
+            [includeIndex]="true"
+            [columnOptions]="columnOptionsReports"
+            [data]="displayedReports"
+            [searchLabel]="searchLabel"
+            (inputSearch)="onInputSearch($event)"
+            (clickToRow)="openSystemNoteModal($event)"
+            [maxDisplayingData]="pageSize"
+        />
+    </div>
+    <div class="f2-card-footer">
+        <mat-paginator
+            #paginator
+            (page)="onPageEvent($event)"
+            [length]="totalItems"
+            [pageSize]="pageSize"
+            [hidePageSize]="true"
+            [pageIndex]="page"
+            aria-label="Select page"
+            class="f2-paginator"
+        >
+        </mat-paginator>
+    </div>
+</div>

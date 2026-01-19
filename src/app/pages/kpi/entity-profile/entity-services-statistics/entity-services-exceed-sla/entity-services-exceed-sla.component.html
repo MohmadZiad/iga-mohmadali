@@ -1,0 +1,14 @@
+<div class="f2-card">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="['csv', 'excel']"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <span class="f2-title-text">{{ title() }}</span>
+    </div>
+    <app-f2-table
+        [includeIndex]="true"
+        [columnOptions]="columnOptions"
+        [data]="tableData()"
+    ></app-f2-table>
+</div>

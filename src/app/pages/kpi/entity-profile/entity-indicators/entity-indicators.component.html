@@ -1,0 +1,84 @@
+<div class="f2-card">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="reportFormats"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <div class="indicators-header">
+            <div class="f2-title-text">{{ title() }}</div>
+            <div class="title-statistics">
+                <div>{{ entityOrdersStatistics.total }}</div>
+                <div>:</div>
+                <div>{{ translateService.getValue('totalServiceRequests') }}</div>
+                <div>{{ entityOrdersStatistics.completed }}</div>
+                <div>:</div>
+                <div>{{ translateService.getValue('completedServiceRequests') }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="f2-card-content performance-level">
+        <div class="f2-circle-indicators">
+            @for (item of entityOrdersStatistics.getPerformances(); track item.key) {
+                <div class="f2-indicator-container">
+                    <div class="f2-indicator-labels">
+                        <div class="f2-indicator-name">{{ translateService.getValue('performances.' + item.key) }}</div>
+                        <div class="f2-indicator-count">
+                            {{ translateService.getValue('numberOfRequests') }}: {{ item.count }}
+                        </div>
+                    </div>
+                    <div class="f2-indicator-progress-circle">
+                        <app-circle-progress-bar
+                            [value]="item.rate"
+                            color="#D5A520"
+                        />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="f2-overall-speed-indicator">
+            <div class="f2-indicator-container">
+                <div class="f2-rate-label">
+                    <div>
+                        {{ translateService.getValue('numberOfRequests') }}: {{ entityOrdersStatistics.completedWithinSla }}
+                    </div>
+                    <div>{{ translateService.getValue('performances.compliance') }}</div>
+                </div>
+                <app-progress-bar
+                    class="f2-progress-bar"
+                    color="#D5A520"
+                    [progress]="entityOrdersStatistics.complianceRate"
+                ></app-progress-bar>
+                <!-- <div class="f2-indicator-comparison-text">test</div> -->
+            </div>
+            <div class="f2-logo-container">
+                <img
+                    class="f2-logo"
+                    src="assets/icons/logo-icon.svg"
+                    alt="logo"
+                />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="indicator-container">
+    <div class="f2-card rates-card">
+        <div class="f2-card-title indicators-services">
+            <div class="mr8">{{ entityName() }}</div>
+            <div class="f2-title-text">{{ translateService.getValue('titleServiceIndicators') }}</div>
+        </div>
+        <div class="f2-card-content">
+            <app-indicators-services
+                class="full-width"
+                [statistics]="entityOrdersStatistics"
+            />
+        </div>
+    </div>
+
+    <div class="f2-card total-card">
+        <div class="f2-title-text">{{ translateService.getValue('titleTotalServiceRequests') }}</div>
+        <div class="f2-total">
+            {{ entityOrdersStatistics.total | number: '1.0-0' }}
+        </div>
+    </div>
+</div>

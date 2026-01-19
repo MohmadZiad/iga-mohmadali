@@ -1,0 +1,13 @@
+@if (!isLoading) {
+    <app-sidebar
+        class="sidebar"
+        [ngClass]="{ collapsed: !isSubMenuOpened$() }"
+        (subMenuOpened)="isSubMenuOpened$.set($event)"
+    ></app-sidebar>
+    <div
+        class="main-content"
+        [ngClass]="{ collapsed: !isSubMenuOpened$() }"
+    >
+        <router-outlet></router-outlet>
+    </div>
+}

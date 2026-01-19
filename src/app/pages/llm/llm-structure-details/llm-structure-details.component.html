@@ -1,0 +1,50 @@
+<div class="f2-page-header-bordered">
+    <button
+        class="f2-button f2-back f2-small"
+        (click)="goBack()"
+    >
+        Back
+    </button>
+    <button
+        class="f2-button f2-discard f2-edit f2-small bordered"
+        (click)="edit()"
+    >
+        Edit
+    </button>
+</div>
+<div class="f2-page-content content">
+    <p>Structure Details</p>
+    @if (llmStructure$ | async; as llmStructure) {
+        <div class="f2-card">
+            <div class="f2-card-title">
+                {{ llmStructure.name }}
+            </div>
+            <div class="grid-container">
+                <div>
+                    <div>
+                        <span>Model</span>
+                        <p>{{ llmStructure.model }}</p>
+                    </div>
+                    <div>
+                        <span>Temperature</span>
+                        <p>{{ llmStructure.temperature }}</p>
+                    </div>
+                    <div>
+                        <span>Top P</span>
+                        <p>{{ llmStructure.topP }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header mt30 mb30 ml30 mr30">
+            <div class="title">Rules</div>
+            <button
+                class="f2-button f2-submit"
+                (click)="addLlmRule()"
+            >
+                + New Rule
+            </button>
+        </div>
+        <app-paginated-table [options]="rulesTableOptions"></app-paginated-table>
+    }
+</div>

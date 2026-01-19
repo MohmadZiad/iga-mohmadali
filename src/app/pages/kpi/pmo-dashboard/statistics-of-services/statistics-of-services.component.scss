@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    gap: inherit;
+    flex-flow: column;
+}
+
+.f2-card {
+    flex: 1;
+
+    .chart-services-statistics-container {
+        min-width: 665px;
+        flex: 1;
+    }
+}

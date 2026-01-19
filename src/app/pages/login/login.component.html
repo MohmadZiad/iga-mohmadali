@@ -1,0 +1,66 @@
+<div class="f2-login-form-view">
+    <img
+        class="f2-login-form-logo"
+        src="assets/svg/logo.svg"
+        alt="logo"
+    />
+    <form
+        [formGroup]="loginForm"
+        class="f2-login-form"
+        (ngSubmit)="login()"
+    >
+        <div class="f2-login-form-title mb16">Welcome!</div>
+        <div>
+            <label class="f2-control-label f2-auth-form-input-label">
+                Email address
+                <input
+                    class="f2-input-field full-width"
+                    type="text"
+                    formControlName="username"
+                    placeholder="info@mail.com"
+                />
+            </label>
+        </div>
+        <div>
+            <label class="f2-control-label f2-auth-form-input-label">
+                Password
+                <div class="f2-password-input">
+                    <input
+                        class="f2-input-field full-width"
+                        [type]="isPasswordVisible ? 'text' : 'password'"
+                        formControlName="password"
+                        placeholder="Enter your password"
+                    />
+                    <button
+                        mat-button
+                        type="button"
+                        class="f2-eye-icon"
+                        (click)="changeVisiblePassword()"
+                    >
+                        <img
+                            [src]="iconVisible"
+                            alt="Set visibility Password"
+                        />
+                    </button>
+                </div>
+            </label>
+        </div>
+        <p
+            class="text-right accent-link"
+            (click)="openForgotPasswordPage()"
+        >
+            Forgot Password?
+        </p>
+        <div class="mt44">
+            <button
+                class="f2-button full-width"
+                type="submit"
+                [disabled]="!loginForm.valid"
+            >
+                Log in
+            </button>
+        </div>
+    </form>
+    <div class="text-right mt44">v{{ appVersion }}</div>
+</div>
+<div class="f2-auth-image-view"></div>

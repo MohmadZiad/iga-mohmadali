@@ -1,0 +1,25 @@
+<div class="f2-page-content">
+    <div class="f2-page-tile-wrapper">
+        @if (channelList()) {
+            @for (channelItem of channelList(); track channelItem.channelId) {
+                <div class="f2-square-tile f2-clickable">
+                    <div class="f2-tile-menu">
+                        <img
+                            src="/assets/icons/menu-icon.svg"
+                            alt="Menu"
+                        />
+                    </div>
+                    <div class="f2-tile-img-container">
+                        <img
+                            [src]="'/assets/icons/channel/square-' + channelItem.channel + '-icon.svg'"
+                            alt="Menu"
+                        />
+                    </div>
+
+                    <div class="f2-tile-title">{{ channelLabelMap[channelItem.channel] }}</div>
+                    <div class="f2-tile-text">{{ channelItem.name }}</div>
+                </div>
+            }
+        }
+    </div>
+</div>

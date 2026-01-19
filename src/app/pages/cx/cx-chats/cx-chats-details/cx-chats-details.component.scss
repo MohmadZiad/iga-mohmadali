@@ -1,0 +1,26 @@
+.chat-card {
+    margin: 0 auto;
+    padding: 16px;
+}
+
+mat-list-item {
+    //border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-accordion,
+mat-expansion-panel {
+    box-shadow: none !important;
+    background: none !important;
+}
+
+mat-card {
+    box-shadow: none !important;
+    border: none !important;
+    background: none !important;
+}

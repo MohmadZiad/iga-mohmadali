@@ -1,0 +1,13 @@
+<div class="f2-card-title">
+    <app-download-menu
+        [formats]="reportFormats"
+        (selectedFormat)="downloadReport($event)"
+    />
+    <span class="f2-title-text">{{ title() }}</span>
+</div>
+<app-f2-table
+    [includeIndex]="true"
+    [columnOptions]="columnOptions()"
+    [data]="tableData()"
+    (clickToRow)="goToDrillDown($event)"
+/>

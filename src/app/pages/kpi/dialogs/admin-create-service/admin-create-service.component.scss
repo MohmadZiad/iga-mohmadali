@@ -1,0 +1,38 @@
+:host {
+    display: grid;
+    margin: 1rem;
+    gap: 1rem;
+}
+.f2-subtitle {
+    padding-left: 1.7rem;
+    color: #535862;
+    font-weight: 400;
+}
+
+mat-divider {
+    border-color: #E9EAEB;
+}
+
+.create-service-content {
+    display: grid;
+    gap: 0.5rem;
+
+    .row-form-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .mat-mdc-form-field-subscript-wrapper {
+                display: block;
+            }
+
+        .f2-input-field {
+                padding: 0;
+                padding-right: 1rem;
+            }
+
+        mat-form-field {
+            width: 20rem;
+        }
+    }
+}

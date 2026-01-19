@@ -1,0 +1,19 @@
+<nav
+    mat-align-tabs="center"
+    mat-stretch-tabs="false"
+    mat-tab-nav-bar
+    [tabPanel]="tabPanel"
+>
+    @for (tab of tabs; track tab) {
+        <a
+            mat-tab-link
+            [routerLink]="tab.route"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [active]="rla.isActive"
+        >
+            {{ tab.label }}
+        </a>
+    }
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

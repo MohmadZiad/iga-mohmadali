@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+    flex-flow: row;
+    gap: 0.5rem;
+}
+
+.account-name {
+    align-self: center;
+}
+
+.account-logo-container {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--f2-theme-primary-light-color);
+
+    .logo {
+        position: absolute;
+        height: 70%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

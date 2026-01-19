@@ -1,0 +1,31 @@
+<div class="f2-card f2-rates-card">
+    <div class="f2-rates-card-title f2-title-text">
+        {{ translateService.getValue('titleIndicatorsWorking') }}
+    </div>
+    <app-indicators-services [statistics]="statisticsForCurrentPeriod" />
+</div>
+
+<div class="f2-card f2-total-card">
+    <div class="f2-title-text">{{ translateService.getValue('titleTotalServiceRequests') }}</div>
+    <div class="f2-total">
+        {{ statisticsForCurrentPeriod.total | number: '1.0-0' }}
+    </div>
+    <div class="f2-recent-arrivals">
+        @let difference = statisticsForCurrentPeriod.total - statisticsForPreviousPeriod.total;
+        {{ difference > 0 ? '+' + difference : difference }}
+    </div>
+    <div class="f2-quarter-rating">
+        <div>
+            {{ translateService.getValue('differenceWithPreviousPeriod') }} {{ differenceDays }}
+            {{ translateService.getValue('days') }}
+        </div>
+        <div
+            [class]="{
+                positive: statisticsForCurrentPeriod.total > statisticsForPreviousPeriod.total,
+                negative: statisticsForCurrentPeriod.total < statisticsForPreviousPeriod.total,
+            }"
+        >
+            {{ getDifferenceWithPreviousPeriod() }}%
+        </div>
+    </div>
+</div>

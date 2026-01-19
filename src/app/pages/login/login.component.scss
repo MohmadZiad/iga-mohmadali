@@ -1,0 +1,71 @@
+:host {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.f2-login-form-view {
+    margin: 8%;
+    max-width: 430px;
+    min-width: 230px;
+}
+
+.f2-login-form-logo {
+    height: 50px;
+    cursor: pointer;
+}
+
+.f2-login-form-title {
+    font:
+        normal 500 25px/30px Milliard,
+        sans-serif;
+    color: #308099;
+}
+
+.f2-login-form {
+    margin-top: 10%;
+    display: grid;
+    grid-gap: 8px;
+}
+
+.f2-auth-form-input-label {
+    font:
+        normal 400 14px/16px Milliard,
+        sans-serif;
+    margin-bottom: 8px;
+}
+
+.f2-password-input {
+    position: relative;
+
+    .f2-eye-icon {
+        border: none;
+        background: none;
+        outline: none;
+        position: absolute;
+        top: 50%;
+        right: 1em;
+        cursor: pointer;
+        transform: translate(0, -50%);
+    }
+}
+
+.f2-auth-image-view {
+    background-image: url('/assets/imgs/background.png');
+    height: 100vh;
+    display: none;
+
+    @media (min-width: 768px) {
+        flex: 0 0 auto;
+        display: block;
+    }
+}
+
+.accent-link {
+    cursor: pointer;
+    color: var(--f2-accent-line-light-color);
+}

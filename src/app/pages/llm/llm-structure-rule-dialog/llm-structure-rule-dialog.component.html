@@ -1,0 +1,76 @@
+<h2 mat-dialog-title>
+    @if (data?.editMode) {
+        Update Rule
+    } @else {
+        Add New Rule
+    }
+</h2>
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+>
+    <mat-dialog-content class="content">
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('name')) }"
+                >
+                    Name
+                </label>
+                <input
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="name"
+                    formControlName="name"
+                    placeholder="Enter Name"
+                />
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('name'))) {
+                        {{ nameErrors }}
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label
+                    class="f2-input-label"
+                    [ngClass]="{ required: isRequired(form.get('value')) }"
+                >
+                    Value
+                </label>
+                <textarea
+                    type="text"
+                    class="f2-input-field full-width"
+                    id="value"
+                    formControlName="value"
+                    placeholder="Enter Value"
+                ></textarea>
+                <div class="f2-input-error-text">
+                    @if (isErrorNeededToBeShown(form.get('value'))) {
+                        Value is required
+                    }
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button
+            class="f2-button f2-discard"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <button
+            class="f2-button f2-submit"
+            type="submit"
+        >
+            @if (data?.editMode) {
+                Update
+            } @else {
+                Add
+            }
+        </button>
+    </mat-dialog-actions>
+</form>

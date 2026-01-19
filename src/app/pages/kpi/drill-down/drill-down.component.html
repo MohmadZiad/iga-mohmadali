@@ -1,0 +1,51 @@
+<div class="f2-page-header">
+    <app-f2-datepicker
+        class="f2-datepicker-container"
+        (valueChange)="onChangeDateRange($event)"
+        [startDay]="searchParameters.startDate"
+        [endDay]="searchParameters.endDate"
+    />
+
+    <div class="f2-header-title">
+        <span class="f2-title-text">{{ translateService.getValue('drillDown') }}</span>
+        <img
+            class="ml10"
+            src="/assets/icons/chart-bar.svg"
+            alt="Page Icon"
+        />
+    </div>
+</div>
+
+<div class="f2-page-content entity-list">
+    <div class="f2-card">
+        <div class="f2-card-title">
+            <app-download-menu
+                [formats]="reportFormats"
+                (selectedFormat)="downloadReport($event)"
+            />
+            <span class="f2-title-text">{{ translateService.getValue('titleTableReportDrillDown') }}</span>
+        </div>
+        <div class="f2-card-content">
+            <div class="f2-content-element most-requested-services">
+                <app-f2-table
+                    [columnOptions]="columnOptions"
+                    [data]="tableData()"
+                    [maxDisplayingData]="10"
+                />
+            </div>
+        </div>
+        <div class="f2-card-footer">
+            <mat-paginator
+                #paginator
+                (page)="onPageEvent($event)"
+                [length]="totalItems"
+                [pageSize]="pageSize"
+                [hidePageSize]="true"
+                [pageIndex]="page"
+                aria-label="Select page"
+                class="f2-paginator"
+            >
+            </mat-paginator>
+        </div>
+    </div>
+</div>

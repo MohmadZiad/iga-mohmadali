@@ -27,6 +27,15 @@ export class F2ChartsComponent {
     data = input<ChartDataItemType[]>([]);
     color = input<string>('#4a61a8');
     dimensions = input<string[]>(['name', 'value']);
+    barHeight = input<number>(30);
+
+    // حساب الارتفاع الديناميكي بناءً على عدد العناصر
+    chartHeight = computed(() => {
+        const itemCount = this.data().length;
+        const minHeight = 200;
+        const calculatedHeight = itemCount * (this.barHeight() + 15) + 80;
+        return Math.max(minHeight, calculatedHeight);
+    });
 
     clickToChart = output<ItemChart>();
 
@@ -48,8 +57,8 @@ export class F2ChartsComponent {
     }
 
     chartOption = computed<echarts.EChartsCoreOption>(() => {
+        const barHeightValue = this.barHeight();
         return {
-            // legend: {},
             color: this.color(),
             tooltip: {
                 confine: true,
@@ -72,7 +81,18 @@ export class F2ChartsComponent {
                     white-space: normal;
                 `,
             },
-            xAxis: {},
+            xAxis: {
+                axisLine: {
+                    lineStyle: {
+                        color: '#E5E5E5',
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#E5E5E5',
+                    },
+                },
+            },
             yAxis: {
                 type: 'category',
                 inverse: true,
@@ -82,36 +102,50 @@ export class F2ChartsComponent {
                 axisLine: {
                     show: false,
                 },
+                axisTick: {
+                    show: false,
+                },
                 nameTextStyle: {
                     fontSize: 13,
+                    color: '#666',
+                    padding: [0, 0, 0, 10],
                 },
                 name: 'اسم الخدمة',
                 nameLocation: 'middle',
+                nameGap: 25,
             },
             grid: {
-                top: '5%',
+                top: 20,
+                bottom: 30,
+                left: 50,
+                right: 20,
+                containLabel: false,
             },
             series: [
                 {
                     label: {
                         show: true,
-                        position: [5, -12],
+                        position: 'insideRight',
                         color: '#000000',
-
+                        fontSize: 12,
                         formatter: (params: any) => {
-                            return params.name.trim();
+                            const name = params.name.trim();
+                            return name.length > 40 ? name.substring(0, 40) + '...' : name;
                         },
                     },
                     encode: {
                         x: 1,
                         y: 0,
                     },
-                    barCategoryGap: 18,
-                    barMaxWidth: 25,
-                    barMinWidth: 15,
+                    barCategoryGap: 8,
+                    barMaxWidth: barHeightValue,
+                    barMinWidth: barHeightValue - 5,
                     type: 'bar',
                     data: this.data(),
                     dimensions: this.dimensions(),
+                    itemStyle: {
+                        borderRadius: [0, 4, 4, 0],
+                    },
                 },
             ],
         };

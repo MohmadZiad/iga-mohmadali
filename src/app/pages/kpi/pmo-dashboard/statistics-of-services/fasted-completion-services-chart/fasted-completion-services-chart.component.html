@@ -6,12 +6,15 @@
         />
         <span class="f2-title-text">{{ title() }}</span>
     </div>
-    <app-f2-charts
-        #fastedCompletionChart
-        class="chart-item"
-        [data]="fastedChartData()"
-        color="#7bab64"
-        [dimensions]="dimensions"
-        (clickToChart)="goToDrillDown($event)"
-    />
+    <div class="chart-wrapper">
+        <app-f2-charts
+            #fastedCompletionChart
+            class="chart-item"
+            [data]="fastedChartData()"
+            color="#7bab64"
+            [dimensions]="dimensions"
+            [barHeight]="25"
+            (clickToChart)="goToDrillDown($event)"
+        />
+    </div>
 </div>

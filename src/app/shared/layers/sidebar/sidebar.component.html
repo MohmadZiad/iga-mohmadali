@@ -1,19 +1,19 @@
-<div class="main-menu" [ngClass]="{ collapsed: !isSidebarExpanded$() }" (dblclick)="toggleSidebar()">
+<div class="main-menu">
     <div class="main-menu__header">
         <a routerLink="/">
             <img
-                class="logo"
-                src="assets/svg/logo.svg"
+                class="logo ml10 mb22 mt22"
+                src="assets/icons/logo-icon.svg"
                 alt="logo"
             />
         </a>
-        <span class="header-text" *ngIf="isSidebarExpanded$()">Government of Bahrain</span>
     </div>
     <div class="main-menu__content">
         <mat-nav-list class="nav-menu-list">
             @for (item of menuItems; track item) {
                 @if (item.condition) {
-                    <a
+                    <button
+                        mat-icon-button
                         class="menu-item"
                         [routerLink]="item.path"
                         routerLinkActive="active"
@@ -28,8 +28,7 @@
                             [src]="item.icon"
                             [alt]="item.name"
                         />
-                        <span class="menu-item__name" *ngIf="isSidebarExpanded$()">{{ item.name }}</span>
-                    </a>
+                    </button>
                 }
             }
         </mat-nav-list>
@@ -91,6 +90,7 @@
                         class="menu-item"
                         [routerLink]="item.path"
                         routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: false }"
                     >
                         <img
                             matListItemIcon

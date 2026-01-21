@@ -13,61 +13,42 @@ import { DownloadMenuComponent } from '../../../../../shared/components/download
 import { DialogsService } from '../../../dialogs/dialogs.service';
 
 @Component({
-    selector: 'app-services-meet-sla',
+    selector: 'app-longest-sla-duration-entities',
     imports: [F2TableComponent, DownloadMenuComponent],
-    templateUrl: './services-meet-sla.component.html',
-    styleUrl: './services-meet-sla.component.scss',
+    templateUrl: './longest-sla-duration-entities.component.html',
+    styleUrl: './longest-sla-duration-entities.component.scss',
 })
-export class ServicesMeetSlaComponent {
+export class LongestSlaDurationEntitiesComponent {
     private translateService = inject(TranslateService);
     private readonly dialogsService = inject(DialogsService);
 
-    title = signal(this.translateService.getValue('titleServiceMeetSLA'));
+    title = signal(this.translateService.getValue('titleLongestSLADurationEntities'));
     reportFormats = ['csv', 'excel'];
-    dataServicesMeetSLA = input.required({
+
+    dataServices = input.required({
         transform: (res: ServiceStatistics[]) => {
             return res
                 .concat()
-                .filter((item) => !!item.countMeetSLA)
-                .sort((a: ServiceStatistics, b: ServiceStatistics) => b.rateMeetSLA - a.rateMeetSLA);
+                .filter((item) => !!item.sla && !!item.totalOrders)
+                .sort((a, b) => b.sla - a.sla);
         },
     });
-    tableData = computed(() => this.dataServicesMeetSLA().slice(0, 10));
+
+    tableData = computed(() => this.dataServices().slice(0, 10));
+
     readonly columnOptions: F2TableColumnOption[] = [
         {
-            key: 'rangeDays',
-            label: this.translateService.getValue('durationPeriod'),
-        },
-        {
-            key: 'isExistsApprovalDependencies',
-            label: this.translateService.getValue('isExistsApprovalDependencies'),
-        },
-        {
-            key: 'averageDays',
-            label: this.translateService.getValue('averageDays'),
-        },
-        {
-            key: 'rateMeetSLA',
-            label: this.translateService.getValue('rateMeetSLA'),
-            unit: '%',
-            color: '#72A64A',
-        },
-        {
-            key: 'countMeetSLA',
-            label: this.translateService.getValue('countMeetSLA'),
-            color: '#0D2646',
+            key: 'totalOrders',
+            label: this.translateService.getValue('numberOfRequests'),
         },
         {
             key: 'sla',
-            label: this.translateService.getValue('SLA'),
-        },
-        {
-            key: 'countCompletedOrders',
-            label: this.translateService.getValue('countCompletedOrders'),
+            label: this.translateService.getValue('slaDuration'),
         },
         {
             key: 'serviceName',
             label: this.translateService.getValue('service'),
+            isBig: true,
         },
         {
             key: 'entityName',
@@ -79,14 +60,14 @@ export class ServicesMeetSlaComponent {
         switch (format) {
             case 'csv':
                 DownloadService.downloadCsv(
-                    prepareTableDataToCSV<ServiceStatistics>(this.dataServicesMeetSLA(), this.columnOptions),
-                    `report_meet_sla_service${Date.now()}.csv`
+                    prepareTableDataToCSV<ServiceStatistics>(this.dataServices(), this.columnOptions),
+                    `report_longest_sla_duration_${Date.now()}.csv`
                 );
                 break;
             case 'excel':
                 DownloadService.downloadExcel(
-                    prepareTableDataToExcel<ServiceStatistics>(this.dataServicesMeetSLA(), this.columnOptions),
-                    `report_meet_sla_service${Date.now()}.xlsx`
+                    prepareTableDataToExcel<ServiceStatistics>(this.dataServices(), this.columnOptions),
+                    `report_longest_sla_duration_${Date.now()}.xlsx`
                 );
                 break;
             default:
@@ -99,7 +80,7 @@ export class ServicesMeetSlaComponent {
         this.dialogsService.openDrillDownDialog({
             accountId: item['accountId'],
             serviceCode: item['serviceCode'],
-            selectOrderStatuses: ['executed/complete'],
         });
     }
 }
+

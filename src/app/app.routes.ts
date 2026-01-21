@@ -71,7 +71,7 @@ export const routes: Routes = [
                     {
                         path: 'dashboard',
                         canActivate: [canRootAccount],
-                        component: ViewProjectComponent,
+                        component: PMODashboardComponent,
                     },
                     {
                         path: 'entity/:entityId',
@@ -92,7 +92,7 @@ export const routes: Routes = [
                     },
                     {
                         path: '',
-                        redirectTo: 'dashboard',
+                        redirectTo: 'upload',
                         pathMatch: 'full',
                     },
                 ],
@@ -103,11 +103,6 @@ export const routes: Routes = [
                 data: { featureFlagKey: 'pm' },
                 component: ProjectManagementTabsComponent,
                 children: [
-                    {
-                        path: '',
-                        redirectTo: 'create-project',
-                        pathMatch: 'full',
-                    },
                     {
                         path: 'create-project',
                         component: CreateProjectComponent,

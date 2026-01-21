@@ -7,15 +7,18 @@
         <span class="f2-title-text">{{ title() }}</span>
     </div>
     <div class="f2-card-content">
-        <div class="f2-content-element most-requested-services">
-            <app-f2-charts
-                color="#D5A520"
-                [data]="chartDataPopularServices()"
-                [dimensions]="dimensions"
-                (clickToChart)="goToDrillDown($event)"
-            />
+        <div class="f2-content-element most-requested-services chart-section">
+            <div class="chart-wrapper">
+                <app-f2-charts
+                    color="#D5A520"
+                    [data]="chartDataPopularServices()"
+                    [dimensions]="dimensions"
+                    [barHeight]="25"
+                    (clickToChart)="goToDrillDown($event)"
+                />
+            </div>
         </div>
-        <div class="f2-content-element most-requested-services">
+        <div class="f2-content-element most-requested-services table-section">
             <app-f2-table
                 [includeIndex]="true"
                 [columnOptions]="columnOptions"

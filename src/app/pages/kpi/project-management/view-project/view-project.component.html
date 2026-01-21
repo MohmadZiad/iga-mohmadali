@@ -1,72 +1,181 @@
-<div class="view-project-container">
-    <!-- Dashboard Header -->
-    <div class="dashboard-header">
-        <div class="header-left">
-            <img
-                class="dashboard-icon"
-                src="/assets/icons/chart-bar.svg"
-                alt="Dashboard Icon"
-            />
-            <span class="dashboard-title">Project Tracking Dashboard</span>
-        </div>
-        <div class="header-controls">
-            <mat-form-field class="f2-select project-select">
-                <mat-select
-                    [(value)]="selectedProjectId"
-                    (selectionChange)="onProjectChange($event.value)"
-                    placeholder="Project Name"
-                >
-                    @for (project of projectOptions(); track project.projectId) {
-                        <mat-option [value]="project.projectId">{{ project.projectName }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="f2-select month-select">
-                <mat-select
-                    [(value)]="selectedMonthOption"
-                    (selectionChange)="onMonthOptionChange($event.value)"
-                >
-                    <mat-option value="previous">Previous month</mat-option>
-                    <mat-option value="current">Current month</mat-option>
-                    <mat-option value="next">Next month</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="f2-datepicker">
-                <mat-date-range-input
-                    [formGroup]="range"
-                    [rangePicker]="rangePicker"
-                >
-                    <input
-                        matStartDate
-                        formControlName="start"
-                        placeholder="Start date"
-                    />
-                    <input
-                        matEndDate
-                        formControlName="end"
-                        placeholder="End date"
-                    />
-                </mat-date-range-input>
-                <mat-datepicker-toggle
-                    matSuffix
-                    [for]="rangePicker"
-                >
-                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-date-range-picker
-                    #rangePicker
-                    (closed)="onDateRangeChange()"
-                />
-            </mat-form-field>
-            <button
-                class="f2-button f2-submit export-button"
-                (click)="exportReport()"
+<div class="dashboard-header">
+    <div class="header-left">
+        <div class="dashboard-icon">
+            <svg
+                width="25"
+                height="26"
+                viewBox="0 0 25 26"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
             >
-                Export Report
-            </button>
+                <rect
+                    x="2"
+                    y="2"
+                    width="21"
+                    height="22"
+                    rx="2"
+                    stroke="#999999"
+                    stroke-width="1.5"
+                    fill="none"
+                />
+                <line
+                    x1="6"
+                    y1="8"
+                    x2="19"
+                    y2="8"
+                    stroke="#999999"
+                    stroke-width="1.5"
+                />
+                <line
+                    x1="6"
+                    y1="12"
+                    x2="14"
+                    y2="12"
+                    stroke="#999999"
+                    stroke-width="1.5"
+                />
+                <line
+                    x1="6"
+                    y1="16"
+                    x2="17"
+                    y2="16"
+                    stroke="#999999"
+                    stroke-width="1.5"
+                />
+            </svg>
         </div>
+
+        <span class="dashboard-title">Project Tracking Dashboard</span>
+
+        <mat-form-field class="f2-select project-select">
+            <mat-select
+                [(value)]="selectedProjectId"
+                (selectionChange)="onProjectChange($event.value)"
+                placeholder="Project Name"
+            >
+                @for (project of projectOptions(); track project.projectId) {
+                    <mat-option [value]="project.projectId">
+                        {{ project.projectName }}
+                    </mat-option>
+                }
+            </mat-select>
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
     </div>
 
-    <!-- IGA Reports Component -->
-    <app-iga-reports />
+    <div class="header-controls">
+        <mat-form-field class="f2-select month-select">
+            <mat-select
+                [(value)]="selectedMonthOption"
+                (selectionChange)="onMonthOptionChange($event.value)"
+            >
+                <mat-option value="previous">Previous month</mat-option>
+                <mat-option value="current">Current month</mat-option>
+                <mat-option value="next">Next month</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="f2-datepicker">
+            <mat-date-range-input
+                [formGroup]="range"
+                [rangePicker]="rangePicker"
+            >
+                <input
+                    matStartDate
+                    formControlName="start"
+                    placeholder="Start date"
+                />
+                <input
+                    matEndDate
+                    formControlName="end"
+                    placeholder="End date"
+                />
+            </mat-date-range-input>
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="rangePicker"
+            >
+                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-date-range-picker
+                #rangePicker
+                (closed)="onDateRangeChange()"
+            />
+        </mat-form-field>
+
+        <button
+            class="f2-button f2-submit export-button"
+            (click)="exportReport()"
+        >
+            Export Report
+        </button>
+    </div>
+</div>
+
+<div class="f2-page-header">
+    <div class="f2-filter-container">
+        <button
+            class="f2-button f2-page-download-menu"
+            [matMenuTriggerFor]="downloadPageMenu"
+        >
+            Download
+        </button>
+        <mat-menu #downloadPageMenu>
+            @for (child of menuItems(); track $index) {
+                <button
+                    mat-menu-item
+                    [matMenuTriggerFor]="itemMenu"
+                >
+                    {{ child.title() }}
+                </button>
+                <mat-menu #itemMenu>
+                    @for (format of child.reportFormats; track format) {
+                        <button
+                            class="format-menu-item"
+                            mat-menu-item
+                            (click)="child.downloadReport(format)"
+                        >
+                            {{ format }}
+                        </button>
+                    }
+                </mat-menu>
+            }
+        </mat-menu>
+        <button
+            class="f2-button f2-filter"
+            (click)="openPopup()"
+        ></button>
+    </div>
+    <div class="f2-header-title">
+        <span class="f2-title-text">
+            {{ translateService.getValue('pmoDashboardTitle') }}
+        </span>
+        <img
+            class="f2-page-icon ml10"
+            src="/assets/icons/chart-bar.svg"
+            alt="Page Icon"
+        />
+    </div>
+    <div class="selected-period">{{ translateService.getValue('selectedPeriod') }} {{ selectedPeriod() }}</div>
+    <app-f2-popup [(open)]="filterPopupOpen">
+        <app-filter-modal [(popupOpen)]="filterPopupOpen" />
+    </app-f2-popup>
+</div>
+
+<div class="f2-page-content kpi-dashboard">
+    <div class="f2-page-title text-right">
+        <span class="overview">{{ translateService.getValue('overview') }}</span>
+        <span class="key-metrics">{{ translateService.getValue('keyMetrics') }}</span>
+    </div>
+
+    <app-indicators-of-working />
+
+    <app-entity-statistics />
+
+    <app-statistics-of-completion-services />
+
+    <app-pmo-entity-reporting />
 </div>

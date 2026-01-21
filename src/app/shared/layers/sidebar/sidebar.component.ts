@@ -6,13 +6,13 @@ import { AuthService } from '../../../auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItem } from '../../../data/interfaces/menu-item.interface';
 import { UserService } from '../../../data/api-services/user/user.service';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { APP_VERSION, FEATURES_FLAGS } from '../../../../environments/environments';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [MatListModule, RouterLink, RouterLinkActive, MatMenuModule, NgClass, NgIf, MatButtonModule],
+    imports: [MatListModule, RouterLink, RouterLinkActive, MatMenuModule, NgClass, MatButtonModule],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss',
 })
@@ -25,7 +25,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     unsubscriber = new Subject();
 
     isSubMenuOpened$ = signal<boolean>(false);
-    isSidebarExpanded$ = signal<boolean>(true);
     subMenuHeader$ = signal<string>('');
     subMenuItems$ = signal<MenuItem[]>([]);
 
@@ -34,17 +33,45 @@ export class SidebarComponent implements OnInit, OnDestroy {
     menuItems: MenuItem[] = [
         {
             condition: FEATURES_FLAGS.dashboard,
-            path: '/kpi/dashboard',
+            path: '/kpi',
             name: 'Reports',
             icon: '/assets/icons/sidebar/analytics.svg',
             selectedIcon: '/assets/icons/sidebar/analytics-selected.svg',
-        },
-        {
-            condition: FEATURES_FLAGS.pm,
-            path: '/pm/create-project',
-            name: 'Project Managment',
-            icon: '/assets/icons/sidebar/analytics.svg',
-            selectedIcon: '/assets/icons/sidebar/analytics-selected.svg',
+            children: [
+                {
+                    condition: this.userService.isRootAccountUser,
+                    path: '/kpi/dashboard',
+                    name: 'PMO View',
+                    icon: '/assets/icons/sidebar/kpi/pmo-view.svg',
+                    selectedIcon: '/assets/icons/sidebar/kpi/pmo-view-selected.svg',
+                },
+                {
+                    path: '/kpi/entity',
+                    name: 'Entity View',
+                    icon: '/assets/icons/sidebar/kpi/entity-view.svg',
+                    selectedIcon: '/assets/icons/sidebar/kpi/entity-view-selected.svg',
+                },
+                {
+                    path: '/kpi/upload',
+                    name: 'Upload',
+                    icon: '/assets/icons/sidebar/kpi/upload-kpi.svg',
+                    selectedIcon: '/assets/icons/sidebar/kpi/upload-kpi-selected.svg',
+                },
+                {
+                    condition: FEATURES_FLAGS.pm,
+                    path: '/pm/create-project',
+                    name: 'Project Management',
+                    icon: '/assets/icons/sidebar/kpi/project-management.svg',
+                    selectedIcon: '/assets/icons/sidebar/kpi/project-management-selected.svg',
+                },
+                {
+                    condition: this.userService.isRootAccountUser,
+                    path: '/kpi/admin/service-codes',
+                    name: 'Admin Services',
+                    icon: '/assets/icons/sidebar/settings.svg',
+                    selectedIcon: '/assets/icons/sidebar/settings-selected.svg',
+                },
+            ],
         },
         {
             condition: FEATURES_FLAGS.llm,
@@ -148,9 +175,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // Emit initial sidebar state
-        this.subMenuOpened.emit(this.isSidebarExpanded$());
-
         // open sub-menu for active URL
         this.openSubMenu(this.router.url);
 
@@ -170,17 +194,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
         if (!url) {
             return;
         }
-        const activeMenuItem = this.menuItems.find((menuItem) => url.includes(menuItem.path));
+        // Check if URL is for Project Management (pm) and find Reports menuItem
+        let activeMenuItem = this.menuItems.find((menuItem) => url.includes(menuItem.path));
+        if (url.startsWith('/pm') && !activeMenuItem) {
+            activeMenuItem = this.menuItems.find((menuItem) => menuItem.path === '/kpi');
+        }
         this.subMenuHeader$.set(activeMenuItem?.name || '');
         const subMenuItems = activeMenuItem?.children || [];
         this.subMenuItems$.set(subMenuItems);
         if (subMenuItems.length) {
             this.isSubMenuOpened$.set(true);
+            this.subMenuOpened.emit(true);
         } else {
             this.isSubMenuOpened$.set(false);
+            this.subMenuOpened.emit(false);
         }
-        // Always emit sidebar expanded state, not submenu state
-        this.subMenuOpened.emit(this.isSidebarExpanded$());
     }
 
     ngOnDestroy(): void {
@@ -199,10 +227,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
     changeDisplaySubMenu() {
         this.isSubMenuOpened$.update((value) => !value);
         this.subMenuOpened.emit(this.isSubMenuOpened$());
-    }
-
-    toggleSidebar() {
-        this.isSidebarExpanded$.update((value) => !value);
-        this.subMenuOpened.emit(this.isSidebarExpanded$());
     }
 }

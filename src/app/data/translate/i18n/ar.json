@@ -22,13 +22,17 @@
 
     "titleMostRejectedServices": "الخدمات الأكثر رفضًا",
     "requestsRejected": "عدد الطلبات المرفوضة",
+    "rateRejected": "% نسبة الرفض",
 
     "titleMostReturnedServices": "أكثر الخدمات المرجعة الى العميل",
     "requestsReturned": "عدد الطلبات المرجعة",
+    "rateReturned": "% نسبة المرتجعة",
 
     "titleStatisticsCompletionServices": "تقرير الخدمات الأكثر تفاوتًا في فترة الإنجاز",
     "titleServiceMeetSLA": "أبرز الخدمات التزاماً لاتفاقية مستوى الخدمة",
     "titleServiceExceedSLA": "أبرز الخدمات تجاوزاً لاتفاقية مستوى الخدمة",
+    "titleLongestSLADurationEntities": "الجهات ذات أطول مدة اتفاقية مستوى الخدمة",
+    "slaDuration": "مدة SLA",
 
     "titleEntityReport": "تقرير الجهات الحكومية",
     "titleEntityStatistics": "الجهات الاكثر تجاوزا لاتفاقية مستوى الخدمة",

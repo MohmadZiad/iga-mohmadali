@@ -1,3 +1,36 @@
 .most-requested-services {
-    min-width: 450px;
+    min-width: 400px;
+}
+
+.chart-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 500px;
+    
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #a1a1a1;
+    }
+}
+
+.table-section {
+    flex: 1;
 }

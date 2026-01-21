@@ -7,8 +7,6 @@ import DownloadService from '../../../../shared/services/download.service';
 
 import { ChartServicesStatisticsComponent } from './chart-services-statistics/chart-services-statistics.component';
 import { ServicesCompletionStatisticsComponent } from './services-completion-statistics/services-completion-statistics.component';
-import { ServicesMeetSlaComponent } from './services-meet-sla/services-meet-sla.component';
-import { ServicesExceedSlaComponent } from './services-exceed-sla/services-exceed-sla.component';
 import { FastedCompletionServicesChartComponent } from './fasted-completion-services-chart/fasted-completion-services-chart.component';
 import { LongestCompletionServicesChartComponent } from './longest-completion-services-chart/longest-completion-services-chart.component';
 import { MostRequestedServicesComponent } from './most-requested-services/most-requested-services.component';
@@ -23,8 +21,6 @@ import { FiltersData } from '../../../../data/interfaces/filter.interface';
         DownloadMenuComponent,
         ChartServicesStatisticsComponent,
         ServicesCompletionStatisticsComponent,
-        ServicesMeetSlaComponent,
-        ServicesExceedSlaComponent,
         FastedCompletionServicesChartComponent,
         LongestCompletionServicesChartComponent,
         MostRequestedServicesComponent,
@@ -45,8 +41,6 @@ export class StatisticsOfServicesComponent {
     }
 
     servicesCompletionStatistics = viewChild.required(ServicesCompletionStatisticsComponent);
-    servicesMeetSla = viewChild.required(ServicesMeetSlaComponent);
-    servicesExceedSla = viewChild.required(ServicesExceedSlaComponent);
     fastedCompletionServices = viewChild.required(FastedCompletionServicesChartComponent);
     longestCompletionServices = viewChild.required(LongestCompletionServicesChartComponent);
     mostRequestedServices = viewChild.required(MostRequestedServicesComponent);

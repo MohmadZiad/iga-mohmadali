@@ -4,5 +4,6 @@
     echarts
     [options]="chartOption()"
     [loading]="!data()"
+    [style.height.px]="chartHeight()"
     (chartInit)="onChartInit($event)"
 ></div>

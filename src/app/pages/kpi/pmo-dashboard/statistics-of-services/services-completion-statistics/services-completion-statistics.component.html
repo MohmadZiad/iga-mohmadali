@@ -1,13 +1,105 @@
-<div class="f2-card-title">
-    <app-download-menu
-        [formats]="['csv', 'excel']"
-        (selectedFormat)="downloadReport($event)"
-    />
-    <span class="f2-title-text">{{ title() }}</span>
+<div class="f2-card">
+    <div class="f2-card-title">
+        <app-download-menu
+            [formats]="['csv', 'excel']"
+            (selectedFormat)="downloadReport($event)"
+        />
+        <span class="f2-title-text">{{ title() }}</span>
+    </div>
+    <app-f2-table
+        [includeIndex]="true"
+        [columnOptions]="columnOptions"
+        [data]="tableDate()"
+        (clickToRow)="onServiceSelect($event)"
+    ></app-f2-table>
+    
+    @if (selectedService()) {
+        <div class="chart-section">
+            <div class="radio-buttons">
+                <label 
+                    class="radio-label" 
+                    [class.selected]="selectedDayType() === 'average'"
+                    [class.type-average]="selectedDayType() === 'average'"
+                >
+                    <input 
+                        type="radio" 
+                        name="dayType" 
+                        [value]="'average'"
+                        [checked]="selectedDayType() === 'average'"
+                        (change)="onDayTypeChange('average')"
+                    />
+                    <span>{{ translateService.getValue('averageDays') }}</span>
+                </label>
+                <label 
+                    class="radio-label" 
+                    [class.selected]="selectedDayType() === 'fewest'"
+                    [class.type-fewest]="selectedDayType() === 'fewest'"
+                >
+                    <input 
+                        type="radio" 
+                        name="dayType" 
+                        [value]="'fewest'"
+                        [checked]="selectedDayType() === 'fewest'"
+                        (change)="onDayTypeChange('fewest')"
+                    />
+                    <span>{{ translateService.getValue('fewestDays') }}</span>
+                </label>
+                <label 
+                    class="radio-label" 
+                    [class.selected]="selectedDayType() === 'most'"
+                    [class.type-most]="selectedDayType() === 'most'"
+                >
+                    <input 
+                        type="radio" 
+                        name="dayType" 
+                        [value]="'most'"
+                        [checked]="selectedDayType() === 'most'"
+                        (change)="onDayTypeChange('most')"
+                    />
+                    <span>{{ translateService.getValue('mostDays') }}</span>
+                </label>
+            </div>
+            
+            <div class="circular-chart-container">
+                <div class="circular-chart">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle 
+                            cx="60" 
+                            cy="60" 
+                            r="50" 
+                            fill="none" 
+                            stroke="#E5E5E5" 
+                            stroke-width="8"
+                        />
+                        <circle 
+                            cx="60" 
+                            cy="60" 
+                            r="50" 
+                            fill="none" 
+                            [attr.stroke]="selectedDayType() === 'most' ? '#308099' : selectedDayType() === 'fewest' ? '#0D2646' : '#72A64A'"
+                            stroke-width="8"
+                            [attr.stroke-dasharray]="getStrokeDashArray()"
+                            stroke-dashoffset="0"
+                            transform="rotate(-90 60 60)"
+                            class="progress-circle"
+                        />
+                        <text 
+                            x="60" 
+                            y="60" 
+                            text-anchor="middle" 
+                            dominant-baseline="central"
+                            [attr.fill]="selectedDayType() === 'most' ? '#308099' : selectedDayType() === 'fewest' ? '#0D2646' : '#72A64A'"
+                            font-size="24"
+                            font-weight="bold"
+                        >
+                            {{ selectedValue() }}
+                        </text>
+                    </svg>
+                </div>
+                <div class="service-name-display">
+                    {{ selectedService()?.serviceName }}
+                </div>
+            </div>
+        </div>
+    }
 </div>
-<app-f2-table
-    [includeIndex]="true"
-    [columnOptions]="columnOptions"
-    [data]="tableDate()"
-    (clickToRow)="goToDrillDown($event)"
-></app-f2-table>

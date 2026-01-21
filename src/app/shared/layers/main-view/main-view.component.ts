@@ -15,7 +15,7 @@ import { AccountService } from '../../../data/api-services/account/account.servi
 export class MainViewComponent implements OnInit {
     userService = inject(UserService);
     accountService = inject(AccountService);
-    isSubMenuOpened$ = signal<boolean>(true);
+    isSubMenuOpened$ = signal<boolean>(false);
     isLoading = false;
 
     ngOnInit() {

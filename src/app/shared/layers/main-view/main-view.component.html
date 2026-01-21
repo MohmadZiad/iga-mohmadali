@@ -6,7 +6,7 @@
     ></app-sidebar>
     <div
         class="main-content"
-        [ngClass]="{ collapsed: !isSubMenuOpened$() }"
+        [ngClass]="{ expanded: !isSubMenuOpened$() }"
     >
         <router-outlet></router-outlet>
     </div>

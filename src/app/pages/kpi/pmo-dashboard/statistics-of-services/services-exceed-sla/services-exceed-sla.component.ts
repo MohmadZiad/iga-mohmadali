@@ -39,6 +39,10 @@ export class ServicesExceedSlaComponent {
             label: this.translateService.getValue('durationPeriod'),
         },
         {
+            key: 'isExistsApprovalDependencies',
+            label: this.translateService.getValue('isExistsApprovalDependencies'),
+        },
+        {
             key: 'averageDays',
             label: this.translateService.getValue('averageDays'),
         },
@@ -60,10 +64,6 @@ export class ServicesExceedSlaComponent {
         {
             key: 'countCompletedOrders',
             label: this.translateService.getValue('countCompletedOrders'),
-        },
-        {
-            key: 'isExistsApprovalDependencies',
-            label: this.translateService.getValue('isExistsApprovalDependencies'),
         },
         {
             key: 'serviceName',

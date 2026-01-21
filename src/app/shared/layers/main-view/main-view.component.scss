@@ -5,40 +5,32 @@
 
 .sidebar {
     position: fixed;
-    width: 230px;
+    width: 300px;
     height: 100%;
-    transition: width 0.3s ease;
+    transition: width 0.5s;
     z-index: 2;
 
     &.collapsed {
-        width: 55px;
+        width: 55px !important;
     }
 }
 
 .main-content {
     height: 100%;
     overflow-y: auto;
-    margin-left: 230px;
-    transition: margin-left 0.3s ease;
+    margin-left: 300px;
+    transition: margin-left 0.5s;
 
-    &.collapsed {
-        margin-left: 55px;
+    &.expanded {
+        margin-left: 55px !important;
     }
 }
 
 @media only screen and (max-width: 930px) {
     .sidebar {
-        width: 230px;
-
-        &.collapsed {
-            width: 55px;
-        }
+        width: 245px !important;
     }
     .main-content {
-        margin-left: 230px;
-
-        &.collapsed {
-            margin-left: 55px;
-        }
+        margin-left: 55px !important;
     }
 }

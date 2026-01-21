@@ -1,5 +1,11 @@
 <app-entity-report [entityStatistics]="entityStatistics" />
 
+<app-services-meet-sla [dataServicesMeetSLA]="serviceStatistics" />
+
+<app-services-exceed-sla [dataServicesExceedSLA]="serviceStatistics" />
+
+<app-longest-sla-duration-entities [dataServices]="serviceStatistics" />
+
 <div class="f2-card">
     <div class="f2-card-title">
         <app-download-menu

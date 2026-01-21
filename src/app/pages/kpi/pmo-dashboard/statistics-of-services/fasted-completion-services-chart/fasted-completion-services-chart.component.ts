@@ -27,15 +27,13 @@ export class FastedCompletionServicesChartComponent {
         transform: (res: ServiceStatistics[]) => {
             return res
                 .concat()
-                .filter((item) => !!item.averageDays)
                 .sort((a, b) => a.averageDays - b.averageDays);
         },
     });
     fastedChartData = computed<ChartDataItemType[]>(() => {
         return this.fastedServices()
-            .slice(0, 10)
             .map((item, index) => [
-                `${item.serviceName}${new Array(index).fill('\u00A0').join('')}`, // ! Needed fix this to identical name services.
+                `${item.serviceName} (${item.entityName || index + 1})`,
                 item.averageDays,
                 item.serviceCode,
                 item.accountId,

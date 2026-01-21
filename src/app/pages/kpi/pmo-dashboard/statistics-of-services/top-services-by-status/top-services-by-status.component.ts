@@ -57,33 +57,41 @@ export class TopServicesByStatusComponent {
             })
     );
     readonly columnOptions = computed<F2TableColumnOption[]>(() => {
-        return [
+        const baseColumns: F2TableColumnOption[] = [
             {
                 key: 'rate',
-                label: this.translateService.getValue('percentage'),
+                label: this.status() === 'returned' 
+                    ? this.translateService.getValue('rateReturned')
+                    : this.translateService.getValue('rateRejected'),
                 displayMode: 'circleProgress',
                 color: getColorByStatus(this.status()),
-                unit: '%',
-            },
-            {
-                key: 'count',
-                label: this.requestsLabel(),
+                unit: '',
             },
             {
                 key: 'totalOrders',
                 label: this.translateService.getValue('totalRequests'),
             },
             {
+                key: 'count',
+                label: this.requestsLabel(),
+            },
+            {
                 key: 'serviceName',
                 label: this.translateService.getValue('service'),
                 isBig: true,
             },
-            {
+        ];
+
+        // إضافة عمود اسم الجهة فقط للجدول "returned"
+        if (this.status() === 'returned') {
+            baseColumns.push({
                 key: 'account',
                 label: this.translateService.getValue('entity'),
                 displayMode: 'accountName',
-            },
-        ];
+            });
+        }
+
+        return baseColumns;
     });
 
     downloadReport(format: string) {

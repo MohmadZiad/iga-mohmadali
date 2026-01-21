@@ -6,11 +6,15 @@
         />
         <span class="f2-title-text">{{ title() }}</span>
     </div>
-    <app-f2-charts
-        #fastedCompletionChart
-        class="chart-item"
-        [data]="longestChartData()"
-        [dimensions]="dimensions"
-        (clickToChart)="goToDrillDown($event)"
-    />
+    <div class="chart-wrapper">
+        <app-f2-charts
+            #longestCompletionChart
+            class="chart-item"
+            [data]="longestChartData()"
+            color="#4a61a8"
+            [dimensions]="dimensions"
+            [barHeight]="25"
+            (clickToChart)="goToDrillDown($event)"
+        />
+    </div>
 </div>

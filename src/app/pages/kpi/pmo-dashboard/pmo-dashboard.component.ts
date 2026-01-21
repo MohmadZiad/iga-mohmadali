@@ -41,12 +41,12 @@ export class PMODashboardComponent {
         return [
             this.entityStatistics(),
             this.entityStatistics().entityReport(),
+            this.entityStatistics().servicesMeetSla(),
+            this.entityStatistics().servicesExceedSla(),
             this.statisticsOfServices().fastedCompletionServices(),
             this.statisticsOfServices().longestCompletionServices(),
             this.statisticsOfServices(),
             this.statisticsOfServices().servicesCompletionStatistics(),
-            this.statisticsOfServices().servicesMeetSla(),
-            this.statisticsOfServices().servicesExceedSla(),
             this.statisticsOfServices().mostRequestedServices(),
             ...this.statisticsOfServices().topServicesByStatus(),
         ].filter(Boolean);

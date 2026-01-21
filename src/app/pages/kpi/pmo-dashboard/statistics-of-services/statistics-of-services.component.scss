@@ -11,4 +11,16 @@
         min-width: 665px;
         flex: 1;
     }
+
+    &.f2-card-content.top-services-container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: flex-start;
+
+        app-top-services-by-status {
+            flex: 1;
+            min-width: 0;
+        }
+    }
 }

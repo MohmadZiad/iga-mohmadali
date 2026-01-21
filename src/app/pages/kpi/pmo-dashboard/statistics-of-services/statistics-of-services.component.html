@@ -21,11 +21,7 @@
     </div>
 </div>
 
-<app-services-meet-sla [dataServicesMeetSLA]="dataServiceStatistics" />
-
-<app-services-exceed-sla [dataServicesExceedSLA]="dataServiceStatistics" />
-
-<div class="f2-card f2-card-content">
+<div class="f2-card f2-card-content top-services-container">
     @for (item of listTopServicesByStatus; track $index) {
         <app-top-services-by-status
             [topServicesByStatus]="dataServiceStatistics"

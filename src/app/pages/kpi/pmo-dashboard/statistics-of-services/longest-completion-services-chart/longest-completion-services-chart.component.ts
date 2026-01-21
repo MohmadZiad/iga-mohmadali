@@ -25,15 +25,13 @@ export class LongestCompletionServicesChartComponent {
         transform: (res: ServiceStatistics[]) => {
             return res
                 .concat()
-                .filter((item) => !!item.averageDays)
                 .sort((a, b) => b.averageDays - a.averageDays);
         },
     });
     longestChartData = computed<ChartDataItemType[]>(() => {
         return this.longestServices()
-            .slice(0, 10)
             .map((item, index) => [
-                `${item.serviceName}${new Array(index).fill('\u00A0').join('')}`, // ! Needed fix this to identical name services.
+                `${item.serviceName} (${item.entityName || index + 1})`,
                 item.averageDays,
                 item.serviceCode,
                 item.accountId,

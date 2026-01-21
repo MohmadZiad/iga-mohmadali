@@ -15,15 +15,20 @@ import { first } from 'rxjs';
 import { EntityReportComponent } from './entity-report/entity-report.component';
 import { KpiFilterService } from '../../../../data/api-services/kpi-filter.service';
 import { DialogsService } from '../../dialogs/dialogs.service';
+import { ServicesMeetSlaComponent } from '../statistics-of-services/services-meet-sla/services-meet-sla.component';
+import { ServicesExceedSlaComponent } from '../statistics-of-services/services-exceed-sla/services-exceed-sla.component';
+import { LongestSlaDurationEntitiesComponent } from '../statistics-of-services/longest-sla-duration-entities/longest-sla-duration-entities.component';
+import { ServiceApiService, ServiceStatistics } from '../../../../data/api-services/service/service-api.service';
 
 @Component({
     selector: 'app-entity-statistics',
-    imports: [DownloadMenuComponent, F2TableComponent, EntityReportComponent],
+    imports: [DownloadMenuComponent, F2TableComponent, EntityReportComponent, ServicesMeetSlaComponent, ServicesExceedSlaComponent, LongestSlaDurationEntitiesComponent],
     templateUrl: './entity-statistics.component.html',
     styleUrl: './entity-statistics.component.scss',
 })
 export class EntityStatisticsComponent {
     private readonly accountService = inject(AccountService);
+    private readonly serviceApiService = inject(ServiceApiService);
     private readonly translateService = inject(TranslateService);
     private readonly kpiFilterService = inject(KpiFilterService);
     private readonly dialogsService = inject(DialogsService);
@@ -31,16 +36,22 @@ export class EntityStatisticsComponent {
     constructor() {
         effect(() => {
             this.requestData(this.kpiFilterService.filterData());
+            this.requestServiceStatistics(this.kpiFilterService.filterData());
         });
     }
 
     entityReport = viewChild.required(EntityReportComponent);
+    servicesMeetSla = viewChild.required(ServicesMeetSlaComponent);
+    servicesExceedSla = viewChild.required(ServicesExceedSlaComponent);
+    longestSlaDurationEntities = viewChild.required(LongestSlaDurationEntitiesComponent);
 
     reportFormats = ['csv', 'excel'];
     title = signal(this.translateService.getValue('titleEntityStatistics'));
 
     entityStatistics: AccountItemStatistics[] = [];
     tableData = signal<AccountItemStatistics[]>([]);
+    
+    serviceStatistics: ServiceStatistics[] = [];
 
     columnOptions: F2TableColumnOption[] = [
         {
@@ -108,5 +119,14 @@ export class EntityStatisticsComponent {
 
     goToDrillDown(item: F2TableData) {
         this.dialogsService.openDrillDownDialog({ accountId: item['accountId'] });
+    }
+
+    requestServiceStatistics(filterData: FiltersOrdersData): void {
+        this.serviceApiService
+            .getServiceStatistics(filterData)
+            .pipe(first())
+            .subscribe((res: ServiceStatistics[]) => {
+                this.serviceStatistics = res;
+            });
     }
 }

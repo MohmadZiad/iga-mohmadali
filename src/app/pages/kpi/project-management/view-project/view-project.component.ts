@@ -1,5 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+//Angular
+import { Component, computed, inject, OnInit, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+//Angular Material
+import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,7 +12,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 
-import { IgaReportsComponent } from '../iga-reports/iga-reports.component';
+//Common components
+import { F2PopupComponent } from '../../../../shared/components/f2-popup/f2-popup.component';
+
+//Local components (from pmo-dashboard)
+import { IndicatorsOFWorkingComponent } from '../../pmo-dashboard/indicators-of-working/indicators-of-working.component';
+import { FilterModalDialogComponent } from '../../pmo-dashboard/filter-modal/filter-modal.component';
+import { StatisticsOfServicesComponent } from '../../pmo-dashboard/statistics-of-services/statistics-of-services.component';
+import { TranslateService } from '../../../../data/translate/translate.service';
+import { EntityStatisticsComponent } from '../../pmo-dashboard/entity-statistics/entity-statistics.component';
+import { EntityReportingComponent } from '../../pmo-dashboard/entity-reporting/entity-reporting.component';
 import { KpiFilterService } from '../../../../data/api-services/kpi-filter.service';
 import { ProjectService } from '../../../../data/api-services/project/project.service';
 import { ProjectItem } from '../../../../data/api-services/project/project.interface';
@@ -16,34 +29,61 @@ import { ProjectItem } from '../../../../data/api-services/project/project.inter
 @Component({
     selector: 'app-view-project',
     imports: [
+        MatMenuModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatSelectModule,
         MatDatepickerModule,
         MatIconModule,
         MatInputModule,
-        IgaReportsComponent,
+        IndicatorsOFWorkingComponent,
+        F2PopupComponent,
+        FilterModalDialogComponent,
+        StatisticsOfServicesComponent,
+        EntityStatisticsComponent,
+        EntityReportingComponent,
     ],
     providers: [provideNativeDateAdapter(), DatePipe],
     templateUrl: './view-project.component.html',
     styleUrl: './view-project.component.scss',
 })
 export class ViewProjectComponent implements OnInit {
+    readonly translateService = inject(TranslateService);
     private readonly kpiFilterService = inject(KpiFilterService);
     private readonly projectService = inject(ProjectService);
 
+    private entityStatistics = viewChild.required(EntityStatisticsComponent);
+    private statisticsOfServices = viewChild.required(StatisticsOfServicesComponent);
+
     projectOptions = signal<ProjectItem[]>([]);
     selectedProjectId = '';
-    selectedMonthOption = 'current';
+    selectedMonthOption = 'previous';
 
     range = new FormGroup({
         start: new FormControl<Date | null>(null),
         end: new FormControl<Date | null>(null),
     });
 
-    constructor() {
-        this.setCurrentMonth();
-    }
+    menuItems = computed(() => {
+        return [
+            this.entityStatistics(),
+            this.entityStatistics().entityReport(),
+            this.entityStatistics().servicesMeetSla(),
+            this.entityStatistics().servicesExceedSla(),
+            this.statisticsOfServices().fastedCompletionServices(),
+            this.statisticsOfServices().longestCompletionServices(),
+            this.statisticsOfServices(),
+            this.statisticsOfServices().servicesCompletionStatistics(),
+            this.statisticsOfServices().mostRequestedServices(),
+            ...this.statisticsOfServices().topServicesByStatus(),
+        ].filter(Boolean);
+    });
+
+    filterPopupOpen = false;
+    selectedPeriod = computed(() => {
+        const { startDate, endDate } = this.kpiFilterService.filterData();
+        return `${startDate} - ${endDate}`;
+    });
 
     ngOnInit() {
         this.loadProjects();
@@ -53,9 +93,6 @@ export class ViewProjectComponent implements OnInit {
         this.projectService.getProjects().subscribe({
             next: (projects) => {
                 this.projectOptions.set(projects);
-                if (projects.length > 0) {
-                    this.selectedProjectId = projects[0].projectId;
-                }
             },
             error: (err) => {
                 console.error('Error loading projects:', err);
@@ -103,13 +140,8 @@ export class ViewProjectComponent implements OnInit {
         console.log('Export report clicked');
     }
 
-    private setCurrentMonth() {
-        const now = new Date();
-        const start = new Date(now.getFullYear(), now.getMonth(), 1);
-        const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-        this.range.patchValue({ start, end });
-        this.updateFilter(start, end);
+    openPopup() {
+        this.filterPopupOpen = true;
     }
 
     private updateFilter(start: Date, end: Date) {

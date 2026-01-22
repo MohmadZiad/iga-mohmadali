@@ -25,19 +25,16 @@ export class FastedCompletionServicesChartComponent {
 
     fastedServices = input.required({
         transform: (res: ServiceStatistics[]) => {
-            return res
-                .concat()
-                .sort((a, b) => a.averageDays - b.averageDays);
+            return res.concat().sort((a, b) => a.averageDays - b.averageDays);
         },
     });
     fastedChartData = computed<ChartDataItemType[]>(() => {
-        return this.fastedServices()
-            .map((item, index) => [
-                `${item.serviceName} (${item.entityName || index + 1})`,
-                item.averageDays,
-                item.serviceCode,
-                item.accountId,
-            ]);
+        return this.fastedServices().map((item, index) => [
+            `${item.serviceName} (${item.entityName || index + 1})`,
+            item.averageDays,
+            item.serviceCode,
+            item.accountId,
+        ]);
     });
 
     dimensions: string[] = [this.translateService.getValue('service'), this.translateService.getValue('numberOfDays')];

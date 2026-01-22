@@ -60,9 +60,10 @@ export class TopServicesByStatusComponent {
         const baseColumns: F2TableColumnOption[] = [
             {
                 key: 'rate',
-                label: this.status() === 'returned' 
-                    ? this.translateService.getValue('rateReturned')
-                    : this.translateService.getValue('rateRejected'),
+                label:
+                    this.status() === 'returned'
+                        ? this.translateService.getValue('rateReturned')
+                        : this.translateService.getValue('rateRejected'),
                 displayMode: 'circleProgress',
                 color: getColorByStatus(this.status()),
                 unit: '',

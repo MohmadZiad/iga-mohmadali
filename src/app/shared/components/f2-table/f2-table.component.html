@@ -6,7 +6,10 @@
         [placeholder]="searchLabel()"
     />
 }
-<div class="f2-table">
+<div
+    class="f2-table"
+    [class.f2-table-compact]="variant() === 'compact'"
+>
     @let options = columnOptions();
     <div class="f2-table-header">
         @for (headerOption of options; track $index) {

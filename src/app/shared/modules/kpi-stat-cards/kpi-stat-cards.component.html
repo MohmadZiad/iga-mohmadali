@@ -1,0 +1,33 @@
+<div class="kpi-stats-container">
+    @for (row of statsRows(); track $index) {
+        <div class="kpi-stats-row">
+            @for (item of row; track $index) {
+                <div
+                    class="kpi-stat-card"
+                    [class]="'variant-' + (item.variant || 'green')"
+                >
+                    <div class="card-content">
+                        @if (item.icon) {
+                            <div
+                                class="card-icon"
+                                [class]="'icon-' + (item.variant || 'green')"
+                            >
+                                <img
+                                    [src]="item.icon"
+                                    alt="icon"
+                                />
+                            </div>
+                        }
+                        <div class="card-info">
+                            <span class="card-title">{{ item.title }}</span>
+                            <span class="card-value">{{ item.value }}</span>
+                            @if (item.subtitle) {
+                                <span class="card-subtitle">{{ item.subtitle }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

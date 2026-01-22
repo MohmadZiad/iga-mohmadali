@@ -3,23 +3,9 @@
     <app-longest-completion-services-chart [longestServices]="dataServiceStatistics" />
 </div>
 
-<div class="f2-card f2-card-content">
-    <app-services-statistics [dataServiceStatistics]="dataServiceStatistics" />
-    <div class="chart-services-statistics-container">
-        <div class="f2-card-title">
-            <app-download-menu
-                [formats]="reportFormats"
-                (selectedFormat)="downloadReport($event)"
-            />
-            <span class="f2-title-text">{{ title() }}</span>
-        </div>
-        <app-chart-services-statistics
-            [data]="chartData()"
-            [dimensions]="dimension"
-            [dateRange]="selectedDataRange()"
-        />
-    </div>
-</div>
+<app-services-statistics [dataServiceStatistics]="dataServiceStatistics" />
+
+<app-most-requested-services [dataMostRequestedServices]="dataServiceStatistics" />
 
 <div class="f2-card f2-card-content top-services-container">
     @for (item of listTopServicesByStatus; track $index) {
@@ -31,5 +17,3 @@
         />
     }
 </div>
-
-<app-most-requested-services [dataMostRequestedServices]="dataServiceStatistics" />

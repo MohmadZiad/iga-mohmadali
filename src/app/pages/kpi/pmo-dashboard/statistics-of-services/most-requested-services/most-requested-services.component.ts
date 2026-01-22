@@ -30,13 +30,12 @@ export class MostRequestedServicesComponent {
 
     dimensions: string[] = [this.translateService.getValue('service'), this.translateService.getValue('numberOfRequests')];
     chartDataPopularServices = computed(() =>
-        this.dataMostRequestedServices()
-            .map((item: ServiceStatistics, index) => [
-                `${item.serviceName} (${item.entityName || index + 1})`,
-                item.totalOrders,
-                item.serviceCode,
-                item.accountId,
-            ])
+        this.dataMostRequestedServices().map((item: ServiceStatistics, index) => [
+            `${item.serviceName} (${item.entityName || index + 1})`,
+            item.totalOrders,
+            item.serviceCode,
+            item.accountId,
+        ])
     );
     dataMostRequestedServices = input.required({
         transform: (res: ServiceStatistics[]) => {

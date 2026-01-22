@@ -23,19 +23,16 @@ export class LongestCompletionServicesChartComponent {
     reportFormats = ['png', 'jpeg', 'csv', 'excel'];
     longestServices = input.required({
         transform: (res: ServiceStatistics[]) => {
-            return res
-                .concat()
-                .sort((a, b) => b.averageDays - a.averageDays);
+            return res.concat().sort((a, b) => b.averageDays - a.averageDays);
         },
     });
     longestChartData = computed<ChartDataItemType[]>(() => {
-        return this.longestServices()
-            .map((item, index) => [
-                `${item.serviceName} (${item.entityName || index + 1})`,
-                item.averageDays,
-                item.serviceCode,
-                item.accountId,
-            ]);
+        return this.longestServices().map((item, index) => [
+            `${item.serviceName} (${item.entityName || index + 1})`,
+            item.averageDays,
+            item.serviceCode,
+            item.accountId,
+        ]);
     });
 
     dimensions: string[] = [this.translateService.getValue('service'), this.translateService.getValue('numberOfDays')];

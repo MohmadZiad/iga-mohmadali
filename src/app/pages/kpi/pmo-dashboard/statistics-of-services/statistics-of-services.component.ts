@@ -1,11 +1,8 @@
 import { Component, computed, effect, inject, signal, viewChild, viewChildren } from '@angular/core';
 import { first } from 'rxjs';
 
-import { DownloadMenuComponent } from '../../../../shared/components/download-menu/download-menu.component';
 import { TranslateService } from '../../../../data/translate/translate.service';
-import DownloadService from '../../../../shared/services/download.service';
 
-import { ChartServicesStatisticsComponent } from './chart-services-statistics/chart-services-statistics.component';
 import { ServicesCompletionStatisticsComponent } from './services-completion-statistics/services-completion-statistics.component';
 import { FastedCompletionServicesChartComponent } from './fasted-completion-services-chart/fasted-completion-services-chart.component';
 import { LongestCompletionServicesChartComponent } from './longest-completion-services-chart/longest-completion-services-chart.component';
@@ -18,8 +15,6 @@ import { FiltersData } from '../../../../data/interfaces/filter.interface';
 @Component({
     selector: 'app-statistics-of-completion-services',
     imports: [
-        DownloadMenuComponent,
-        ChartServicesStatisticsComponent,
         ServicesCompletionStatisticsComponent,
         FastedCompletionServicesChartComponent,
         LongestCompletionServicesChartComponent,
@@ -45,8 +40,6 @@ export class StatisticsOfServicesComponent {
     longestCompletionServices = viewChild.required(LongestCompletionServicesChartComponent);
     mostRequestedServices = viewChild.required(MostRequestedServicesComponent);
     topServicesByStatus = viewChildren(TopServicesByStatusComponent);
-
-    private echartsComponent = viewChild.required(ChartServicesStatisticsComponent);
 
     title = signal(this.translateService.getValue('titleStatisticsCompletionServices'));
     reportFormats = ['png', 'jpeg'];
@@ -79,18 +72,7 @@ export class StatisticsOfServicesComponent {
     ];
 
     downloadReport(format: string) {
-        switch (format) {
-            case 'jpeg':
-            case 'png': {
-                const dataUrl = this.echartsComponent().getChartDataURL(format);
-                if (!dataUrl) break;
-                DownloadService.downloadFile(dataUrl, `report_most_uneven_services${Date.now()}.${format}`);
-                break;
-            }
-            default:
-                console.log('Unsupported format');
-                return;
-        }
+        console.log('Download report:', format);
     }
 
     requestData(filterData: FiltersData) {

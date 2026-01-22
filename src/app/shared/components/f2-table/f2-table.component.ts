@@ -21,7 +21,7 @@ export class F2TableComponent {
     rowActions = input<F2TableRowActions[]>([]);
     includeIndex = input<boolean>(false);
     maxDisplayingData = input<number>(5);
-
+    variant = input<'default' | 'compact'>('default');
     tableData = computed<F2TableData[]>(() => {
         return this.data().slice(
             this.selectedPage() * this.maxDisplayingData(),

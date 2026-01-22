@@ -22,7 +22,14 @@ import { ServiceApiService, ServiceStatistics } from '../../../../data/api-servi
 
 @Component({
     selector: 'app-entity-statistics',
-    imports: [DownloadMenuComponent, F2TableComponent, EntityReportComponent, ServicesMeetSlaComponent, ServicesExceedSlaComponent, LongestSlaDurationEntitiesComponent],
+    imports: [
+        DownloadMenuComponent,
+        F2TableComponent,
+        EntityReportComponent,
+        ServicesMeetSlaComponent,
+        ServicesExceedSlaComponent,
+        LongestSlaDurationEntitiesComponent,
+    ],
     templateUrl: './entity-statistics.component.html',
     styleUrl: './entity-statistics.component.scss',
 })
@@ -50,7 +57,7 @@ export class EntityStatisticsComponent {
 
     entityStatistics: AccountItemStatistics[] = [];
     tableData = signal<AccountItemStatistics[]>([]);
-    
+
     serviceStatistics: ServiceStatistics[] = [];
 
     columnOptions: F2TableColumnOption[] = [

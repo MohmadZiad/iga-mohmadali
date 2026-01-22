@@ -1,0 +1,220 @@
+.kpi-stats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 0;
+    gap: 16px;
+    width: 100%;
+    direction: ltr;
+}
+
+.kpi-stats-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 0;
+    gap: 16px;
+    width: 100%;
+}
+
+.kpi-stat-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 24px;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid #e9ebef;
+    border-radius: 8px;
+    flex: 0 1 calc(33.333% - 11px);
+    min-width: 280px;
+    max-width: 350px;
+    min-height: 100px;
+
+    &.variant-blue {
+        border-color: #308099;
+        border-width: 2px;
+    }
+}
+
+// Third row - single card on the left
+.kpi-stats-row:last-child {
+    justify-content: flex-end;
+    
+    .kpi-stat-card {
+        flex: 0 1 auto;
+        min-width: 280px;
+        max-width: 350px;
+    }
+}
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 12px;
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+
+    &.icon-green {
+        background: rgba(114, 166, 74, 0.1);
+        border: 1px solid #72a64a;
+    }
+
+    &.icon-orange {
+        background: rgba(200, 146, 17, 0.1);
+        border: 1px solid #c89211;
+    }
+
+    &.icon-red {
+        background: rgba(200, 17, 17, 0.1);
+        border: 1px solid #c81111;
+    }
+
+    &.icon-blue {
+        background: rgba(48, 128, 153, 0.1);
+        border: 1px solid #308099;
+    }
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
+}
+
+.card-title {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #0d2646;
+}
+
+.card-value {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #0d2646;
+}
+
+.card-subtitle {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #6b7280;
+}
+
+// Responsive for sidebar open/close
+@media (max-width: 1400px) {
+    .kpi-stats-container {
+        padding: 8px 8px 0px;
+    }
+    
+    .kpi-stats-row {
+        gap: 16px;
+        height: auto;
+        min-height: 120px;
+    }
+    
+    .kpi-stat-card {
+        padding: 20px 16px;
+    }
+    
+    .card-title {
+        font-size: 13px;
+    }
+    
+    .card-value {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .kpi-stats-row {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .kpi-stat-card {
+        min-width: calc(50% - 6px);
+        padding: 16px 12px;
+    }
+    
+    .card-title {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    .card-value {
+        font-size: 22px;
+        line-height: 28px;
+    }
+}
+
+// When sidebar is open (narrow viewport)
+@media (max-width: 900px) {
+    .kpi-stats-row {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 12px;
+        height: auto;
+        flex-wrap: wrap;
+    }
+    
+    .kpi-stat-card {
+        min-width: 280px;
+        max-width: 320px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .kpi-stats-container {
+        padding: 6px 6px 0px;
+        align-items: flex-start;
+    }
+    
+    .kpi-stats-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .kpi-stat-card {
+        padding: 14px 12px;
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    .card-icon {
+        width: 32px;
+        height: 32px;
+        
+        img {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
